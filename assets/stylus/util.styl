@@ -1,0 +1,20 @@
+mg(sides = (t r b l), n = 0px)
+  margin unit(n, px) if t in sides and r in sides and b in sides and l in sides
+  margin-top unit(n, px) if sides == t
+  margin-right unit(n, px) if sides == r
+  margin-bottom unit(n, px) if sides == b
+  margin-left unit(n, px) if sides == l
+  margin 0 unit(n, px) if r in sides and l in sides
+  margin unit(n, px) 0 if t in sides and b in sides
+pd(sides = t r b l a , n = 0px)
+  padding unit(n, px) if t in sides and r in sides and b in sides and l in sides
+  padding-top unit(n, px) if sides == t
+  padding-right unit(n, px) if sides == r
+  padding-bottom unit(n, px) if sides == b
+  padding-left unit(n, px) if sides == l
+  padding 0 unit(n, px) if r in sides and l in sides
+  padding unit(n, px) 0 if t in sides and b in sides
+.mg-center
+  margin 0 auto
+.mg-0
+  mg t r b l, 0
