@@ -1,18 +1,29 @@
 <template lang="pug">
   header.header
-    .header-top
-    .header-main.mg-center.container.columns
-      .column.is-one-quarter
+    .header-main.mg-center.container.columns.hfx-center-v
+      .column.is-one-quarter.hfx-center-v
         nuxt-link.header-logo(to="/")
           img(src="~static/logo-nav.png")
-      .column.mg-0
+        header-city
+      .column
+        header-channel
 </template>
 <script>
+  import HeaderCity from '~components/HeaderCity.vue'
+  import HeaderChannel from '~components/HeaderChannel.vue'
+  export default {
+    components: {
+      HeaderCity,
+      HeaderChannel
+    }
+  }
 </script>
 <style lang="stylus" scoped>
+  @import '~assets/stylus/util.styl'
   .header
-    height 100px
-    .header-top
-      height 30px
-      background #f1f1f1
+    height 70px
+    .header-main
+      height 70px
+      .header-logo
+        mg r, 10
 </style>

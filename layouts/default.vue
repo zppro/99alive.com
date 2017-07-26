@@ -1,16 +1,22 @@
 <template lang="pug">
   div
-    navbar
+    topbar
+    headbar
+    channel-nav
     div
       nuxt
 </template>
 
 <script>
-import Navbar from '~components/Header.vue'
+import Topbar from '~components/Topbar.vue'
+import Headbar from '~components/Header.vue'
+import ChannelNav from '~components/ChannelNav.vue'
 
 export default {
   components: {
-    Navbar
+    Topbar,
+    Headbar,
+    ChannelNav
   }
 }
 </script>
