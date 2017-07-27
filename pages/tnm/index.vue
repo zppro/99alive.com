@@ -1,5 +1,5 @@
 <template lang="pug">
-    h1 首页
+    h1 照护人才首页
 </template>
 <script>
 

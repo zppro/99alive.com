@@ -2,11 +2,11 @@
   nav.nav
     .container
       .nav-item.nav-item-active
-        nuxt-link(to="/TPA") 首页
+        nuxt-link(to="/tpa") 首页
       .nav-item
-        nuxt-link(to="/TPA/find") 查找
+        nuxt-link(to="/tpa/find") 查找
       .nav-item
-        nuxt-link(to="/TPA/compare") 对比
+        nuxt-link(to="/tpa/compare") 对比
 </template>
 <script>
 </script>
