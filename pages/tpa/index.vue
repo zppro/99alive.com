@@ -1,5 +1,5 @@
 <template lang="pug">
-    h1 为老服务首页
+    h1 养老机构首页
 </template>
 <script>
 

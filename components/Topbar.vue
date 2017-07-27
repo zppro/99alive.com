@@ -1,5 +1,5 @@
 <template lang="pug">
-  .topbar
+  .topbar.w100
     .mg-center.container.columns.hfx-center-v
       .column
       .column.is-three-quarters.hfx-center-v.no-login
@@ -12,7 +12,11 @@
 <style lang="stylus" scoped>
   @import '~assets/stylus/util.styl'
   .topbar
+    position fixed
+    top 0
+    left 0
     height 30px
+    z-index 9999
     background-color #f1f1f1
     .no-login
       color #999

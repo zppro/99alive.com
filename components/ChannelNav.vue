@@ -1,14 +1,24 @@
 <template lang="pug">
   nav.nav
     .container
-      .nav-item.nav-item-active
-        nuxt-link(to="/tpa") 首页
-      .nav-item
-        nuxt-link(to="/tpa/find") 查找
-      .nav-item
-        nuxt-link(to="/tpa/compare") 对比
+      .nav-item(v-for="item in columns", :class="{'nav-item-active': isActive(item.path)}")
+        nuxt-link(:to="item.path") {{item.name}}
 </template>
 <script>
+  import { mapGetters } from 'vuex'
+  export default {
+    computed: {
+      columns () {
+        let channelId = this.$store.getters.currentChannelId
+        return this.$store.getters[`${channelId}/columns`]
+      }
+    },
+    methods: {
+      isActive (columnPath) {
+        return this.$route.path.endsWith(columnPath)
+      }
+    }
+  }
 </script>
 <style lang="stylus" scoped>
   @import '~assets/stylus/util.styl'

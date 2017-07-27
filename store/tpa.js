@@ -3,20 +3,15 @@
  */
 
 export const state = () => ({
-  list: []
+  _columns: [
+    {name: '首页', path: '/tpa'},
+    {name: '查找', path: '/tpa/query'},
+    {name: '对比', path: '/tpa/compare'},
+  ] // 当前频道栏目
 })
 
-export const mutations = {
-  add (state, text) {
-    state.list.push({
-      text: text,
-      done: false
-    })
-  },
-  remove (state, { todo }) {
-    state.list.splice(state.list.indexOf(todo), 1)
-  },
-  toggle (state, todo) {
-    todo.done = !todo.done
+export const getters = {
+  columns (state) {
+    return state._columns
   }
 }

@@ -21,6 +21,7 @@
 <style lang="stylus" scoped>
   @import '~assets/stylus/util.styl'
   .header
+    mg t, 30px
     height 70px
     .header-main
       height 70px
