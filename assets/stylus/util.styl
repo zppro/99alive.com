@@ -1,31 +1,31 @@
 mg(sides = t r b l, n = 0)
-  margin-top n > 0 ? unit(n, px) : 0 if sides == t
-  margin-right n > 0 ? unit(n, px) : 0 if sides == r
-  margin-bottom n > 0 ? unit(n, px) : 0 if sides == b
-  margin-left n > 0 ? unit(n, px) : 0 if sides == l
+  margin-top n > 0 ? unit(n, rem) : 0 if sides == t
+  margin-right n > 0 ? unit(n, rem) : 0 if sides == r
+  margin-bottom n > 0 ? unit(n, rem) : 0 if sides == b
+  margin-left n > 0 ? unit(n, rem) : 0 if sides == l
   if t in sides and r in sides and b in sides and l in sides
-    margin n > 0 ? unit(n, px) : 0
+    margin n > 0 ? unit(n, rem) : 0
   else if r in sides and l in sides
-    margin 0 n > 0 ? unit(n, px) : 0
+    margin 0 n > 0 ? unit(n, rem) : 0
   else if t in sides and b in sides
-    margin n > 0 ? unit(n, px) : 0 0
+    margin n > 0 ? unit(n, rem) : 0 0
 pd(sides = t r b l, n = 0)
-  padding-top n > 0 ? unit(n, px) : 0 if sides == t
-  padding-right n > 0 ? unit(n, px) : 0 if sides == r
-  padding-bottom n > 0 ? unit(n, px) : 0 if sides == b
-  padding-left n > 0 ? unit(n, px) : 0 if sides == l
+  padding-top n > 0 ? unit(n, rem) : 0 if sides == t
+  padding-right n > 0 ? unit(n, rem) : 0 if sides == r
+  padding-bottom n > 0 ? unit(n, rem) : 0 if sides == b
+  padding-left n > 0 ? unit(n, rem) : 0 if sides == l
   if t in sides and r in sides and b in sides and l in sides
-    padding n > 0 ? unit(n, px) : 0
+    padding n > 0 ? unit(n, rem) : 0
   else if r in sides and l in sides
-    padding 0 n > 0 ? unit(n, px) : 0
+    padding 0 n > 0 ? unit(n, rem) : 0
   else if t in sides and b in sides
-    padding n > 0 ? unit(n, px) : 0 0
+    padding n > 0 ? unit(n, rem) : 0 0
 bd(sides = t r b l a, c, n = 1, line = solid)
-  border-top line c n > 0 ? unit(n, px) : 0 if sides == t
-  border-right line c n > 0 ? unit(n, px) : 0 if sides == r
-  border-bottom line c n > 0 ? unit(n, px) : 0 if sides == b
-  border-left line c n > 0 ? unit(n, px) : 0 if sides == l
-  border line c n > 0 ? unit(n, px) : 0 if sides == a
+  border-top line c n > 0 ? unit(n, px) : none if sides == t
+  border-right line c n > 0 ? unit(n, px) : none if sides == r
+  border-bottom line c n > 0 ? unit(n, px) : none if sides == b
+  border-left line c n > 0 ? unit(n, px) : none if sides == l
+  border line c n > 0 ? unit(n, px) : none if sides == a
 .mg-center
   margin 0 auto
 .mg-0

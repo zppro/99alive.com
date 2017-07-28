@@ -11,7 +11,7 @@
     },
     methods: {
       isActive (channelPath) {
-        return this.$route.path.endsWith(channelPath)
+        return this.$route.path.startsWith(channelPath)
       }
     }
   }
@@ -20,8 +20,8 @@
   @import '~assets/stylus/util.styl'
   .channels
     .channel-item
-      font-size 14px
-      mg l r, 10
+      font-size 0.875rem
+      mg l r, 0.625
       a
         color #888
     .channel-item-active

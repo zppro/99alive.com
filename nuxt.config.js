@@ -3,16 +3,14 @@ const axios = require('axios')
 const dev = process.env.NODE_ENV !== 'production'
 
 const cdnLink = [
-  { rel: 'stylesheet', href: 'https://cdn.bootcss.com/bulma/0.4.3/css/bulma.min.css' },
-  // { rel: 'stylesheet', href: 'https://cdn.bootcss.com/element-ui/1.4.0/theme-default/index.css' }
+  { rel: 'stylesheet', href: 'https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css' },
+  { rel: 'stylesheet', href: 'https://cdn.bootcss.com/bulma/0.4.3/css/bulma.min.css' }
 ]
-const cdnScript = [
-  // { src: 'https://cdn.bootcss.com/element-ui/1.4.0/index.js', type: 'text/javascript'}
-]
+const cdnScript = []
 
 const devUseCSS = [
-  'bulma/css/bulma.css',
-  // 'element-ui/lib/theme-default/index.css'
+  'normalize.css',
+  '~static/bulma.css'
 ]
 
 module.exports = {
@@ -31,21 +29,18 @@ module.exports = {
     // ]
   },
   css: [
-    'normalize.css',
     ...(dev ? devUseCSS : []),
     { src: '~assets/stylus/main.styl', lang: 'stylus' }
   ],
-  // plugins: ['~plugins/vuex-router-sync.js'],
-  plugins: ['~plugins/vuex-router-sync.js', '~plugins/element-ui.js'], // { src: '~plugins/element-ui.js', ssr: false}
+  plugins: ['~plugins/vuex-router-sync.js'],
   build: {
     vendor: ['axios'],
-    // vendor: ['axios' ,'element-ui'],
-    babel: {
-      plugins: [['component', [{
-        libraryName: 'element-ui',
-        styleLibraryName: 'theme-default'
-      }]]]
-    }
+    // babel: {
+    //   plugins: [['component', [{
+    //     libraryName: 'element-ui',
+    //     styleLibraryName: 'theme-default'
+    //   }]]]
+    // }
   },
   loading: { color: '#41B883' }
 }

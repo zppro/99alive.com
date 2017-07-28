@@ -1,5 +1,5 @@
 <template lang="pug">
-  nav.nav
+  nav.nav.w100
     .container
       .nav-item(v-for="item in columns", :class="{'nav-item-active': isActive(item.path)}")
         nuxt-link(:to="item.path") {{item.name}}
@@ -23,12 +23,12 @@
 <style lang="stylus" scoped>
   @import '~assets/stylus/util.styl'
   .nav
-    height 60px
+    height 3.75rem
     background-color #fc7205
     .nav-item
-      width 100px
-      font-size 18px
-      mg l r, 10
+      width 6.25rem
+      font-size 1.125rem
+      mg l r, 0.625rem
       a
         color white
     .nav-item-active

@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import Topbar from '~components/Topbar.vue'
-import Headbar from '~components/Header.vue'
-import ChannelNav from '~components/ChannelNav.vue'
+import Topbar from '~/components/Topbar.vue'
+import Headbar from '~/components/Header.vue'
+import ChannelNav from '~/components/ChannelNav.vue'
 
 export default {
   components: {

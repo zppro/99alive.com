@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nuxt",
+    "dev": "cross-env HOST=0.0.0.0 nuxt",
     "build": "cross-env NODE_ENV=production nuxt build",
     "start": "cross-env HOST=0.0.0.0 nuxt start",
     "gen": "nuxt generate",
@@ -23,10 +23,9 @@
   "homepage": "https://github.com/zppro/99alive.com#readme",
   "dependencies": {
     "axios": "^0.16.2",
-    "bulma": "^0.4.3",
     "element-ui": "^1.4.0",
     "normalize.css": "^7.0.0",
-    "nuxt": "^1.0.0-alpha.5",
+    "nuxt": "latest",
     "vuex-router-sync": "^4.2.0"
   },
   "devDependencies": {
