@@ -26,9 +26,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ...(dev ? [] : cdnLink)
     ],
-    script: [
-      ...(dev ? [] : cdnScript)
-    ]
+    // script: [
+    //   ...(dev ? [] : cdnScript)
+    // ]
   },
   css: [
     'normalize.css',
