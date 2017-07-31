@@ -1,6 +1,6 @@
 <template lang="pug">
-  header.header.w100
-    .header-main.mg-center.container.columns.hfx-center-v
+  header.header.container
+    .header-main.mg-center.columns.hfx-center-v
       .column.is-one-quarter.hfx-center-v
         nuxt-link.header-logo(to="/")
           img(src="~static/logo-nav.png")

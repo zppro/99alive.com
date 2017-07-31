@@ -7,14 +7,14 @@
       .modal-background(@click="closeDialog")
       .modal-content.cities.container
         section.search-bar.columns.hfx-center-v
-          label.column.is-2.has-text-centered 按省份选择:
+          label.column.is-2.hfx-center 按省份选择:
           .section-content.column
         section.hot.columns
-          label.column.is-2.has-text-centered 热门城市:
+          label.column.is-2.hfx-center 热门城市:
           ul.section-content.column.hfx-center-v
             li.city-item(v-for="city in hotCities", @click="switchCity(city._id).then(closeDialog)") {{city.name}}
         section.history.columns
-          label.column.is-2.has-text-centered 最近访问:
+          label.column.is-2.hfx-center 最近访问:
           .section-content.column
         section.alphabet
           ul
@@ -23,7 +23,8 @@
                 .arrow
                 .popover-content.hfx-center 按首字母排列
             li.by-first-letter.columns.hfx-center-v(v-for="(cities, key) in groupedCities")
-              .first-letter.column.is-1.hfx-center {{key}}
+              .column.is-1.hfx-center
+                .first-letter.hfx-center {{key}}
               ul.column.hfx-center-v
                 li.city-item(v-for="city in cities", @click="switchCity(city._id).then(closeDialog)") {{city.name}}
       button.modal-close.is-large(@click="closeDialog")
@@ -53,7 +54,6 @@
 </script>
 <style lang="stylus" scoped>
   @import '~assets/stylus/util.styl'
-  @import "~assets/stylus/extend.styl"
   @import '~assets/stylus/components.styl'
   text-color = #888
   grey-bg = #f4f4f4
@@ -93,15 +93,19 @@
           left 10%
       .by-first-letter
         padding 0.25rem
-        &:hover
-          background-color grey-bg
-          bd l r, #EAEAEA
         .first-letter
           width 2.4rem
           height 2.4rem
           font-size 1.5rem
           background-color grey-bg
+        &:hover
+          background-color grey-bg
+          bd l r, #EAEAEA
+          .first-letter
+            background-color rgba(252, 114, 5, 1)
+            color white
   .city-item
     mg l r, 0.25
     cursor pointer
+    color text-color
 </style>

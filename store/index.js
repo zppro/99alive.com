@@ -10,7 +10,6 @@ export const state = () => ({
     {name: '照护人才', path: '/tnm'},
     {name: '招聘信息', path: '/job'}
   ],
-  apiURI: 'http://localhost:3003',
   _cities: [],
   _currentCity: {id: '010100', name: '杭州'}
 })
@@ -55,13 +54,10 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit ({state, getters, commit}, {isDev}) {
-    if (isDev) {
-      state.apiURI = 'http://192.168.10.194:3003'
-    }
-
     try {
-      let res = await axios(`${state.apiURI}/apis/share/district/cities/,_id name first_letter hot`)
-      commit('setCities', res.data.rows)
+      let cities = await axios(`/share/district/cities/,_id name first_letter hot`)
+      console.log('nuxtServerInit:', cities)
+      commit('setCities', cities)
       console.log('groupedCities:', getters['groupedCities'])
     } catch (e) {
       console.error('Error on [nuxtServerInit] action.', e) // eslint-disable-line no-console

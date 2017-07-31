@@ -31,7 +31,7 @@ module.exports = {
     ...(dev ? devUseCSS : []),
     { src: '~assets/stylus/main.styl', lang: 'stylus' }
   ],
-  plugins: ['~plugins/vuex-router-sync.js'],
+  plugins: ['~plugins/vuex-router-sync.js', '~plugins/axios.js'],
   build: {
     vendor: ['axios'],
     // babel: {

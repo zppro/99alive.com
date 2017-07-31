@@ -28,7 +28,7 @@
     .nav-item
       width 6.25rem
       font-size 1.125rem
-      mg l r, 0.625rem
+      pd l r, 0.625rem
       a
         color white
     .nav-item-active
