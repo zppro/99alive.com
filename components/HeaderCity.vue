@@ -11,7 +11,8 @@
           .section-content.column
         section.hot.columns
           label.column.is-2.has-text-centered 热门城市:
-          .section-content.column
+          ul.section-content.column.hfx-center-v
+            li.city-item(v-for="city in hotCities", @click="switchCity(city._id).then(closeDialog)") {{city.name}}
         section.history.columns
           label.column.is-2.has-text-centered 最近访问:
           .section-content.column
@@ -21,10 +22,10 @@
               .popover
                 .arrow
                 .popover-content.hfx-center 按首字母排列
-            li.by-first-letter.columns.hfx-center-v
-              .first-letter.column.is-1.hfx-center A
-            li.by-first-letter.columns.hfx-center-v
-              .first-letter.column.is-1.hfx-center B
+            li.by-first-letter.columns.hfx-center-v(v-for="(cities, key) in groupedCities")
+              .first-letter.column.is-1.hfx-center {{key}}
+              ul.column.hfx-center-v
+                li.city-item(v-for="city in cities", @click="switchCity(city._id).then(closeDialog)") {{city.name}}
       button.modal-close.is-large(@click="closeDialog")
 </template>
 <script>
@@ -37,7 +38,7 @@
       }
     },
     computed: {
-      ...mapGetters(['currentCityName'])
+      ...mapGetters(['currentCityName', 'hotCities', 'groupedCities'])
     },
     methods: {
       ...mapActions(['switchCity']),
@@ -92,9 +93,15 @@
           left 10%
       .by-first-letter
         padding 0.25rem
+        &:hover
+          background-color grey-bg
+          bd l r, #EAEAEA
         .first-letter
           width 2.4rem
           height 2.4rem
           font-size 1.5rem
           background-color grey-bg
+  .city-item
+    mg l r, 0.25
+    cursor pointer
 </style>

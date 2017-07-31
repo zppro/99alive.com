@@ -1,5 +1,4 @@
 const axios = require('axios')
-
 const dev = process.env.NODE_ENV !== 'production'
 
 const cdnLink = [
