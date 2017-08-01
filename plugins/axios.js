@@ -3,33 +3,44 @@
  */
 import axios from 'axios'
 
+const api = axios.create({
+  baseURL: process.env.API_URL,
+  timeout: 20000
+})
 
-export default ({ store , isDev}) => {
+export const endpoint = {
+  api
+}
+
+export default ({ app, store, isServer, isClient }) => {
   // app.router is router instance
-  let host = isDev ? 'http://192.168.10.194:3003' : 'http://localhost:3003'
-  axios.defaults.baseURL = `${host}/apis`
+  // axios.defaults.baseURL = process.env.API_URL
+  // console.log('app:', isServer, isClient, process.browser, process.server)
 
-  axios.interceptors.response.use(res => {
-    // console.log('interceptors response:', res)
-
-    if (process.BROWSER_BUILD) {
-      return res
-    } else {
-      let url = res.config.url.toLowerCase()
-      if (url.indexOf(axios.defaults.baseURL) === 0) {
-        if (res.headers.parse !== 'no-parse') {
-          console.log('---parse---', url)
-          if (!res.data.success) {
-            let error = new Error(`请求失败:${res.data.msg}`)
-            console.error(error)
-            return Promise.reject(error)
-          }
-        }
+  api.interceptors.response.use(res => {
+    const url = res.config.url.toLowerCase()
+    if (res.headers.parse !== 'no-parse') {
+      if (!res.data.success) {
+        let error = new Error(`业务请求失败:${res.data.msg}`)
+        console.error(error)
+        return Promise.reject(error)
+      } else {
+        return res.data.ret || res.data.rows
       }
-      return res
+    } else {
+      console.log('---no parse---', url)
     }
+    return res
   }, error => {
     console.error(error)
+    if (error.response.status >= 500) {
+      // 服务器内部错误
+    } else if (error.response.status === 401) {
+      // 没有认证,跳转到login
+    }
     return Promise.reject(error)
   })
+
+  app.api = api
+  return api
 }

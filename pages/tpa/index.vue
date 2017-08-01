@@ -23,7 +23,7 @@
   export default {
     async fetch ({store}) {
       await store.dispatch('tpa/fetchStats')
-    }, //first access index.vue everything is ok,but access again it's error,HELP!
+    },
     computed: {
       ...mapGetters({
         currentCityName: 'currentCityName',

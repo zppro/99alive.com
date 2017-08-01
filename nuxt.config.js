@@ -31,6 +31,9 @@ module.exports = {
     ...(dev ? devUseCSS : []),
     { src: '~assets/stylus/main.styl', lang: 'stylus' }
   ],
+  env: {
+    API_URL: process.env.API_URL || 'http://192.168.10.194:3003/apis'
+  },
   plugins: ['~plugins/vuex-router-sync.js', '~plugins/axios.js'],
   build: {
     vendor: ['axios'],

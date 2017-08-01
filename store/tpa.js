@@ -1,7 +1,7 @@
 /**
  * Created by zppro on 17-7-27.
  */
-import axios from 'axios'
+import { endpoint } from '~/plugins/axios'
 import {TPA as types} from './mutation-types'
 
 export const state = () => ({
@@ -29,8 +29,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchStats ({state, commit}) {
-    let { data: { ret } } = await axios(`${state.apiFragment}/stats`)
-    commit(types.SET_STATS, ret)
+  async fetchStats ({state, commit}, o) {
+    console.log('fetchStats:', o);
+    let stats = await endpoint.api(`${state.apiFragment}/stats`)
+    commit(types.SET_STATS, stats)
   }
 }

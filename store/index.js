@@ -1,7 +1,6 @@
 /**
  * Created by zppro on 17-7-27.
  */
-import axios from 'axios'
 import {INDEX as types} from './mutation-types'
 
 export const state = () => ({
@@ -54,11 +53,11 @@ export const mutations = {
 }
 
 export const actions = {
-  async nuxtServerInit ({state, getters, commit}, {isDev}) {
+  async nuxtServerInit ({state, getters, commit}, {app, isServer}) {
     try {
-      const { data: { rows } } = await axios(`/share/district/cities/,_id name first_letter hot`)
-      console.log('nuxtServerInit:', rows)
-      commit(types.SET_CITIES, rows)
+      console.log('nuxtServerInit:')
+      const cities = await app.api(`/share/district/cities/,_id name first_letter hot`)
+      commit(types.SET_CITIES, cities)
       console.log('groupedCities:', getters['groupedCities'])
     } catch (e) {
       console.error('Error on [nuxtServerInit] action.', e) // eslint-disable-line no-console
