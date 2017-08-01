@@ -1,7 +1,9 @@
 /**
  * Created by zppro on 17-7-27.
  */
-import {INDEX as types} from './mutation-types'
+import axios from 'axios'
+import { tpaPrefix } from './module-prefixs'
+import { indexTypes, tpaTypes } from './mutation-types'
 
 export const state = () => ({
   _channels: [
@@ -44,10 +46,10 @@ export const getters = {
 }
 
 export const mutations = {
-  [types.SET_CITY] (state, city) {
+  [indexTypes.SET_CITY] (state, city) {
     city && (state._currentCity = city)
   },
-  [types.SET_CITIES] (state, cities = []) {
+  [indexTypes.SET_CITIES] (state, cities = []) {
     state._cities = cities
   }
 }
@@ -55,12 +57,22 @@ export const mutations = {
 export const actions = {
   async nuxtServerInit ({state, getters, commit}, {app, isServer}) {
     try {
-      console.log('nuxtServerInit:')
-      const cities = await app.api(`/share/district/cities/,_id name first_letter hot`)
-      commit(types.SET_CITIES, cities)
-      console.log('groupedCities:', getters['groupedCities'])
+      console.log('--------------------nuxtServerInit:', axios.all)
+      await axios.all([
+        app.api(`/share/district/cities/,_id name first_letter hot`),
+        app.api(`/share/dictionary/99A01/object`),
+        app.api(`/share/dictionary/99A02/object`),
+        app.api(`/share/dictionary/99A03/object`)
+      ]).then(axios.spread((cities, bedNumSearchDimension, chargeSearchDimentsion, ratingSearchDimension) => {
+        commit(indexTypes.SET_CITIES, cities)
+        commit(tpaPrefix + tpaTypes.SET_SEARCH_DIMENSIONS, [bedNumSearchDimension, chargeSearchDimentsion, ratingSearchDimension])
+      }))
+      // const cities = await app.api(`/share/district/cities/,_id name first_letter hot`)
+      // console.log('ret:', cities, bedNumSearchDimension, chargeSearchDimentsion, ratingSearchDimension)
+
+      // console.log('groupedCities:', getters['groupedCities'])
     } catch (e) {
-      console.error('Error on [nuxtServerInit] action.', e) // eslint-disable-line no-console
+      // console.error('Error on [nuxtServerInit] action.', e) // eslint-disable-line no-console
     }
   },
   switchCity ({state, commit}, cityId) {

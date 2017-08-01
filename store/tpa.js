@@ -2,7 +2,7 @@
  * Created by zppro on 17-7-27.
  */
 import { endpoint } from '~/plugins/axios'
-import {TPA as types} from './mutation-types'
+import { tpaTypes } from './mutation-types'
 
 export const state = () => ({
   apiFragment: '/apps/99alive/tpa',
@@ -11,7 +11,8 @@ export const state = () => ({
     {name: '查找', path: '/tpa/query'},
     {name: '对比', path: '/tpa/compare'},
   ], // 当前频道栏目
-  _stats: { tpaNumbers: 11 }
+  _stats: { tpaNumbers: 11 },
+  _searchDimensions: []
 })
 
 export const getters = {
@@ -20,18 +21,24 @@ export const getters = {
   },
   numbers (state) {
     return state._stats.tpaNumbers || 0
+  },
+  searchDimensions (state) {
+    return state._searchDimensions
   }
 }
 export const mutations = {
-  [types.SET_STATS] (state, stats) {
+  [tpaTypes.SET_STATS] (state, stats) {
     stats && (state._stats = stats)
+  },
+  [tpaTypes.SET_SEARCH_DIMENSIONS] (state, searchDimensions) {
+    searchDimensions && (state._searchDimensions = searchDimensions)
+    console.log('state._searchDimensions:', state._searchDimensions)
   }
 }
 
 export const actions = {
-  async fetchStats ({state, commit}, o) {
-    console.log('fetchStats:', o);
+  async fetchStats ({state, commit}) {
     let stats = await endpoint.api(`${state.apiFragment}/stats`)
-    commit(types.SET_STATS, stats)
+    commit(tpaTypes.SET_STATS, stats)
   }
 }
