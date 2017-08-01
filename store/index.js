@@ -2,6 +2,7 @@
  * Created by zppro on 17-7-27.
  */
 import axios from 'axios'
+import {INDEX as types} from './mutation-types'
 
 export const state = () => ({
   _channels: [
@@ -44,10 +45,10 @@ export const getters = {
 }
 
 export const mutations = {
-  setCity (state, city) {
+  [types.SET_CITY] (state, city) {
     city && (state._currentCity = city)
   },
-  setCities (state, cities = []) {
+  [types.SET_CITIES] (state, cities = []) {
     state._cities = cities
   }
 }
@@ -55,16 +56,16 @@ export const mutations = {
 export const actions = {
   async nuxtServerInit ({state, getters, commit}, {isDev}) {
     try {
-      let cities = await axios(`/share/district/cities/,_id name first_letter hot`)
-      console.log('nuxtServerInit:', cities)
-      commit('setCities', cities)
+      const { data: { rows } } = await axios(`/share/district/cities/,_id name first_letter hot`)
+      console.log('nuxtServerInit:', rows)
+      commit(types.SET_CITIES, rows)
       console.log('groupedCities:', getters['groupedCities'])
     } catch (e) {
       console.error('Error on [nuxtServerInit] action.', e) // eslint-disable-line no-console
     }
   },
   switchCity ({state, commit}, cityId) {
-    commit('setCity', state._cities.find(c => c._id === cityId))
+    commit(types.SET_CITY, state._cities.find(c => c._id === cityId))
     return Promise.resolve()
   }
 }

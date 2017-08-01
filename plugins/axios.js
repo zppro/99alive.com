@@ -11,18 +11,15 @@ export default ({ store , isDev}) => {
 
   axios.interceptors.response.use(res => {
     // console.log('interceptors response:', res)
-    console.log('process:', process.SERVER_BUILD, process.BROWSER_BUILD)
+
     if (process.BROWSER_BUILD) {
       return res
     } else {
       let url = res.config.url.toLowerCase()
       if (url.indexOf(axios.defaults.baseURL) === 0) {
         if (res.headers.parse !== 'no-parse') {
-          console.log('---parse---')
-          if (res.data.success) {
-            return res.data.rows || res.data.ret
-          }
-          else {
+          console.log('---parse---', url)
+          if (!res.data.success) {
             let error = new Error(`请求失败:${res.data.msg}`)
             console.error(error)
             return Promise.reject(error)
