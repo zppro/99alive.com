@@ -18,17 +18,19 @@ export default ({ app, store, isServer, isClient }) => {
   // console.log('app:', isServer, isClient, process.browser, process.server)
 
   api.interceptors.response.use(res => {
-    const url = res.config.url.toLowerCase()
-    if (res.headers.parse !== 'no-parse') {
-      if (!res.data.success) {
-        let error = new Error(`业务请求失败:${res.data.msg}`)
-        console.error(error)
-        return Promise.reject(error)
+    if (res.config) {
+      const url = res.config.url.toLowerCase()
+      if (res.headers.parse !== 'no-parse') {
+        if (!res.data.success) {
+          let error = new Error(`业务请求失败:${res.data.msg}`)
+          console.error(error)
+          return Promise.reject(error)
+        } else {
+          return res.data.ret || res.data.rows
+        }
       } else {
-        return res.data.ret || res.data.rows
+        console.log('---no parse---', url)
       }
-    } else {
-      console.log('---no parse---', url)
     }
     return res
   }, error => {

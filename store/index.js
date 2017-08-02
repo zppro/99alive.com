@@ -57,15 +57,13 @@ export const mutations = {
 export const actions = {
   async nuxtServerInit ({state, getters, commit}, {app, isServer}) {
     try {
-      console.log('--------------------nuxtServerInit:', axios.all)
+      console.log('--------------------nuxtServerInit:')
       await axios.all([
         app.api(`/share/district/cities/,_id name first_letter hot`),
-        app.api(`/share/dictionary/99A01/object`),
-        app.api(`/share/dictionary/99A02/object`),
-        app.api(`/share/dictionary/99A03/object`)
-      ]).then(axios.spread((cities, bedNumSearchDimension, chargeSearchDimentsion, ratingSearchDimension) => {
+        ...state.tpa._searchDimensionIds.map(o => app.api(`/share/dictionary/${o}/pair`))
+      ]).then(axios.spread((cities, ...searchDimensions) => {
         commit(indexTypes.SET_CITIES, cities)
-        commit(tpaPrefix + tpaTypes.SET_SEARCH_DIMENSIONS, [bedNumSearchDimension, chargeSearchDimentsion, ratingSearchDimension])
+        commit(tpaPrefix + tpaTypes.SET_SEARCH_DIMENSIONS, searchDimensions)
       }))
       // const cities = await app.api(`/share/district/cities/,_id name first_letter hot`)
       // console.log('ret:', cities, bedNumSearchDimension, chargeSearchDimentsion, ratingSearchDimension)
@@ -76,7 +74,7 @@ export const actions = {
     }
   },
   switchCity ({state, commit}, cityId) {
-    commit(types.SET_CITY, state._cities.find(c => c._id === cityId))
+    commit(indexTypes.SET_CITY, state._cities.find(c => c._id === cityId))
     return Promise.resolve()
   }
 }

@@ -6,20 +6,20 @@
     .modal(:class="{'is-active': dialogVisible}")
       .modal-background(@click="closeDialog")
       .modal-content.cities.container
-        section.search-bar.columns.hfx-center-v
+        .section.search-bar.columns.hfx-center-v
           label.column.is-2.hfx-center 按省份选择:
           .section-content.column
-        section.hot.columns
+        .section.hot.columns
           label.column.is-2.hfx-center 热门城市:
           ul.section-content.column.hfx-center-v
             li.city-item(v-for="city in hotCities", @click="switchCity(city._id).then(closeDialog)") {{city.name}}
-        section.history.columns
+        .section.history.columns
           label.column.is-2.hfx-center 最近访问:
           .section-content.column
-        section.alphabet
+        .section.alphabet
           ul
             li
-              .popover
+              .popover-down
                 .arrow
                 .popover-content.hfx-center 按首字母排列
             li.by-first-letter.columns.hfx-center-v(v-for="(cities, key) in groupedCities")
@@ -72,7 +72,7 @@
     width 50%
     height 80%
     min-height 30rem
-    section
+    .section
       bd t #ddd
       label
         font-size 1rem
@@ -85,12 +85,13 @@
     .hot, .history
       height 2.5rem
       max-height 5rem
-    section.alphabet
+    .alphabet
       height 10rem
       padding 0.625rem
-      .popover
+      .popover-down
+        width 10rem
         .arrow
-          left 10%
+          left 25%
       .by-first-letter
         padding 0.25rem
         .first-letter

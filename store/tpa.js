@@ -11,8 +11,15 @@ export const state = () => ({
     {name: '查找', path: '/tpa/query'},
     {name: '对比', path: '/tpa/compare'},
   ], // 当前频道栏目
-  _stats: { tpaNumbers: 11 },
-  _searchDimensions: []
+  _stats: {tpaNumbers: 11},
+  _searchDimensionIds: ['99A01', '99A02', '99A03'],
+  _searchDimensions: [],
+  _quickSearchDimensionIds: ['99A01', '99A02', '99A03'],
+  _sliders: [
+    {id: 'slider1', img: 'https://img2.okertrip.com/99alive-alpha/1.png'},
+    {id: 'slider2', img: 'https://img2.okertrip.com/99alive-alpha/2.png'},
+    {id: 'slider3', img: 'https://img2.okertrip.com/99alive-alpha/3.jpg'}
+  ]
 })
 
 export const getters = {
@@ -24,6 +31,12 @@ export const getters = {
   },
   searchDimensions (state) {
     return state._searchDimensions
+  },
+  quickSearchDimensions (state) {
+    return state._searchDimensions.filter(o => state._quickSearchDimensionIds.includes(o.key))
+  },
+  sliders (state) {
+    return state._sliders
   }
 }
 export const mutations = {
@@ -33,12 +46,19 @@ export const mutations = {
   [tpaTypes.SET_SEARCH_DIMENSIONS] (state, searchDimensions) {
     searchDimensions && (state._searchDimensions = searchDimensions)
     console.log('state._searchDimensions:', state._searchDimensions)
+  },
+  [tpaTypes.SET_SLIDERS] (state, sliders) {
+    sliders && (state._sliders = sliders)
   }
 }
 
 export const actions = {
   async fetchStats ({state, commit}) {
-    let stats = await endpoint.api(`${state.apiFragment}/stats`)
+    const stats = await endpoint.api(`${state.apiFragment}/stats`)
     commit(tpaTypes.SET_STATS, stats)
+  },
+  async fetchSlidersInIndex ({state, commit}) {
+    const sliders = await endpoint.api(`${state.apiFragment}/slidersInIndex`)
+    commit(tpaTypes.SET_SLIDERS, sliders)
   }
 }

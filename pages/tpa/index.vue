@@ -1,56 +1,39 @@
 <template lang="pug">
   .container
     .columns
-      .column.is-one-third.card.quick-search-box
-        header.card-header.hfx-center-v
-          label 查找养老机构
-          span.stat-count-wrapper
-            | {{currentCityName}}共有
-            span.stat-count-value {{tpaNumbers}}
-            |家养老机构
-        section.bed-nums.card-content.search-dimension
-          label 床位数
-          .search-dimension-content
-        section.charge.card-content.search-dimension
-          label 收费标准
-          .search-dimension-content
-        section.rating.card-content.search-dimension
-          label 机构评级
-          .search-dimension-content
+      .column.is-one-third
+        quick-search-box(:current-city-name="currentCityName", :tpa-numbers="tpaNumbers", :search-dimensions="quickSearchDimensions")
+      .column
+        slider.slider-in-index(:slider-items="sliders")
+        //.popover-up
+        //  .arrow
+        //  .popover-content.hfx-center 按首字母排列
 </template>
 <script>
+  import { tpaPrefix } from '~/store/module-prefixs'
   import { mapGetters } from 'vuex'
+  import QuickSearchBox from '~/components/tpa/QuickSearchBox'
+  import Slider from '~/components/tpa/Slider'
   export default {
     async fetch ({store}) {
-      await store.dispatch('tpa/fetchStats')
+      await store.dispatch(`${tpaPrefix}fetchStats`)
     },
     computed: {
       ...mapGetters({
         currentCityName: 'currentCityName',
-        tpaNumbers: 'tpa/numbers'
+        tpaNumbers: `${tpaPrefix}numbers`,
+        quickSearchDimensions: `${tpaPrefix}quickSearchDimensions`,
+        sliders: `${tpaPrefix}sliders`
       })
+    },
+    components: {
+      QuickSearchBox,
+      Slider
     }
   }
 </script>
 <style lang="stylus" scoped>
   @import '~assets/stylus/page.styl'
-  .quick-search-box
-    height 26.25rem
-    pd l, 1.5
-    pd t, 0.875
-    label
-      font-size 0.875rem
-      color #333
-      font-weight bold
-    .card-header
-      height 2rem
-      .stat-count-wrapper
-        mg l, 1rem
-        color #999
-        .stat-count-value
-          color #fc7205
-    .search-dimension
-      height 4rem
-      .search-dimension-content
-        color #E7E7E7
+  .slider-in-index
+    mg l, 1
 </style>
