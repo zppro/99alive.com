@@ -6,6 +6,7 @@ import { tpaPrefix } from './module-prefixs'
 import { indexTypes, tpaTypes } from './mutation-types'
 
 export const state = () => ({
+  _$keys: {},
   _channels: [
     {name: '养老机构', path: '/tpa'},
     {name: '为老服务', path: '/srv'},
@@ -17,6 +18,9 @@ export const state = () => ({
 })
 
 export const getters = {
+  $keys (state) {
+    return state._$keys
+  },
   channels (state) {
     return state._channels
   },
@@ -46,6 +50,9 @@ export const getters = {
 }
 
 export const mutations = {
+  [indexTypes.SET_$KEYS] (state, $keys) {
+    $keys && (state._$keys = $keys)
+  },
   [indexTypes.SET_CITY] (state, city) {
     city && (state._currentCity = city)
   },
@@ -59,9 +66,11 @@ export const actions = {
     try {
       console.log('--------------------nuxtServerInit:')
       await axios.all([
+        app.api(`/share/keys.json`),
         app.api(`/share/district/cities/,_id name first_letter hot`),
         ...state.tpa._searchDimensionIds.map(o => app.api(`/share/dictionary/${o}/pair`))
-      ]).then(axios.spread((cities, ...searchDimensions) => {
+      ]).then(axios.spread(($keys, cities, ...searchDimensions) => {
+        commit(indexTypes.SET_$KEYS, $keys)
         commit(indexTypes.SET_CITIES, cities)
         commit(tpaPrefix + tpaTypes.SET_SEARCH_DIMENSIONS, searchDimensions)
       }))

@@ -1,6 +1,7 @@
 /**
  * Created by zppro on 17-7-27.
  */
+import Vue from 'vue'
 import { endpoint } from '~/plugins/axios'
 import { tpaTypes } from './mutation-types'
 
@@ -19,6 +20,10 @@ export const state = () => ({
     {id: 'slider1', img: 'https://img2.okertrip.com/99alive-alpha/1.png'},
     {id: 'slider2', img: 'https://img2.okertrip.com/99alive-alpha/2.png'},
     {id: 'slider3', img: 'https://img2.okertrip.com/99alive-alpha/3.jpg'}
+  ],
+  _tabs: [
+    {id: 'recommend', name: '为您推荐', data: 'LAZY_LOAD'},
+    {id: 'recently', name: '最近加入', data: 'LAZY_LOAD'}
   ]
 })
 
@@ -37,6 +42,9 @@ export const getters = {
   },
   sliders (state) {
     return state._sliders
+  },
+  tabs (state) {
+    return state._tabs
   }
 }
 export const mutations = {
@@ -45,10 +53,16 @@ export const mutations = {
   },
   [tpaTypes.SET_SEARCH_DIMENSIONS] (state, searchDimensions) {
     searchDimensions && (state._searchDimensions = searchDimensions)
-    console.log('state._searchDimensions:', state._searchDimensions)
   },
   [tpaTypes.SET_SLIDERS] (state, sliders) {
     sliders && (state._sliders = sliders)
+  },
+  [tpaTypes.SET_TABS] (state, tabs) {
+    tabs && (state._tabs = tabs)
+  },
+  [tpaTypes.SET_TAB_AGENCIES] (state, {id, agencies}) {
+    let tab = state._tabs.find(o => o.id === id)
+    tab && Vue.set(tab, 'data', agencies)
   }
 }
 
@@ -60,5 +74,15 @@ export const actions = {
   async fetchSlidersInIndex ({state, commit}) {
     const sliders = await endpoint.api(`${state.apiFragment}/slidersInIndex`)
     commit(tpaTypes.SET_SLIDERS, sliders)
+  },
+  async fetchTabsInIndex ({state, commit}) {
+    const tabs = await endpoint.api(`${state.apiFragment}/tabsInIndex`)
+    commit(tpaTypes.SET_TABS, tabs)
+  },
+  async fetchAgenciesInIndex ({rootGetters, state, commit}, {id, data}) {
+    if(rootGetters.$keys.LAZY_LOAD === data) {
+      const agencies = await endpoint.api(`${state.apiFragment}/${id}AgenciesInIndex`)
+      commit(tpaTypes.SET_TAB_AGENCIES, {id, agencies})
+    }
   }
 }

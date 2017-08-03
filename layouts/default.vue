@@ -5,18 +5,20 @@
     channel-nav
     div
       nuxt
+    footbar
 </template>
 
 <script>
 import Topbar from '~/components/Topbar.vue'
 import Headbar from '~/components/Header.vue'
 import ChannelNav from '~/components/ChannelNav.vue'
-
+import Footbar from '~/components/Footer.vue'
 export default {
   components: {
     Topbar,
     Headbar,
-    ChannelNav
+    ChannelNav,
+    Footbar
   }
 }
 </script>

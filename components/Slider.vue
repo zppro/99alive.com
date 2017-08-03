@@ -27,12 +27,12 @@
     },
     computed: {
       sliderIndex () {
-        return this.SliderIds.indexOf(this.currentSlider.id)
+        return this.sliderIds.indexOf(this.currentSlider.id)
       },
       sliderCount () {
         return this.sliderItems.length
       },
-      SliderIds () {
+      sliderIds () {
         return this.sliderItems.map(o => o.id)
       },
       sliderInterval () {
@@ -45,7 +45,7 @@
         this.sliderIntervalId = setInterval(() => {
           let index = this.sliderIndex
           index = index === this.sliderCount - 1 ? 0 : index + 1
-          let nextId = this.SliderIds[index]
+          let nextId = this.sliderIds[index]
           console.log('--------------Slider-Scroll:', nextId)
           this.setActive(nextId)
         }, this.sliderInterval)
