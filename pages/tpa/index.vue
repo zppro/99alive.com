@@ -4,7 +4,7 @@
       .column.is-one-third
         quick-search-box(:current-city-name="currentCityName", :tpa-numbers="tpaNumbers", :search-dimensions="quickSearchDimensions")
       .column
-        slider.slider-in-index(:slider-items="sliders")
+        slider.slider-in-index(:slider-items="sliders", :can-scroll="true", :scroll-interval="5000")
         //.popover-up
         //  .arrow
         //  .popover-content.hfx-center 按首字母排列
@@ -17,6 +17,7 @@
   export default {
     async fetch ({store}) {
       await store.dispatch(`${tpaPrefix}fetchStats`)
+      await store.dispatch(`${tpaPrefix}fetchSlidersInIndex`)
     },
     computed: {
       ...mapGetters({

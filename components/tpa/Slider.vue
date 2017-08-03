@@ -1,36 +1,64 @@
 <template lang="pug">
   .slider-container
       .huge
-        figure.image.is-2by1
-          img(:src="currentSlider.img")
-        .slider-items.level
-          .level-item(v-for="item in sliderItems", :class="positionClass(item.id)")
-            .slider-item.popover-up(v-if="isActive(item.id)")
-              .arrow
-              .popover-content
-                figure.image.is-2by1
-                  img(:src="item.img")
-            .slider-item(v-if="!isActive(item.id)", @click="setActive(item.id)")
+        transition(name="fade")
+          figure.image.is-2by1(v-if="hugeShow")
+            img(:src="currentSlider.img")
+      .slider-items.level
+        .level-item(v-for="item in sliderItems", :class="positionClass(item.id)")
+          .slider-item.popover-up(v-show="isActive(item.id)")
+            .arrow
+            .popover-content
               figure.image.is-2by1
                 img(:src="item.img")
+          .slider-item(v-show="!isActive(item.id)", @click="setActive(item.id)")
+            figure.image.is-2by1
+              img(:src="item.img")
 
 </template>
 <script>
   export default {
     data () {
       return {
+        hugeShow: true,
+        sliderIntervalId: null,
         currentSlider: {}
       }
     },
     computed: {
+      sliderIndex () {
+        return this.SliderIds.indexOf(this.currentSlider.id)
+      },
       sliderCount () {
         return this.sliderItems.length
+      },
+      SliderIds () {
+        return this.sliderItems.map(o => o.id)
+      },
+      sliderInterval () {
+        return this.scrollInterval
       }
     },
     mounted () {
       this.currentSlider = this.sliderCount > 0 ? this.sliderItems[0] : {}
+      if (this.canScroll === true) {
+        this.sliderIntervalId = setInterval(() => {
+          let index = this.sliderIndex
+          index = index === this.sliderCount - 1 ? 0 : index + 1
+          let nextId = this.SliderIds[index]
+          console.log('--------------Slider-Scroll:', nextId)
+          this.setActive(nextId)
+        }, this.sliderInterval)
+      }
     },
-    props: ['sliderItems'],
+    beforeDestroy () {
+      this.sliderIntervalId && clearInterval(this.sliderIntervalId)
+    },
+    props: {
+      sliderItems: {type: Array, default: []},
+      canScroll: {type: Boolean, default: false},
+      scrollInterval: {type: Number, default: 3000}
+    },
     methods: {
       positionClass (id) {
         if (this.sliderItems[0].id === id) {
@@ -45,7 +73,11 @@
         return this.currentSlider.id === id
       },
       setActive (id) {
+        this.hugeShow = false
         this.currentSlider = this.sliderItems.find(o => o.id === id) || {}
+        this.$nextTick(()=>{
+          this.hugeShow = true
+        })
       }
     }
   }
@@ -72,4 +104,8 @@
         pd l r, 0.25
       .right
         pd l, 0.25
+  .fade-enter-active, .fade-leave-active
+    transition opacity 1.5s
+  .fade-enter, .fade-leave-to
+    opacity: 0
 </style>

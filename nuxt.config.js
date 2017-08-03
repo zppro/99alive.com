@@ -2,8 +2,8 @@ const axios = require('axios')
 const dev = process.env.NODE_ENV !== 'production'
 
 const cdnLink = [
-  { rel: 'stylesheet', href: 'https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css' },
-  { rel: 'stylesheet', href: 'https://cdn.bootcss.com/bulma/0.4.3/css/bulma.min.css' }
+  {rel: 'stylesheet', href: 'https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css'},
+  {rel: 'stylesheet', href: 'https://cdn.bootcss.com/bulma/0.4.3/css/bulma.min.css'}
 ]
 const cdnScript = []
 
