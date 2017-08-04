@@ -5,5 +5,12 @@ html
     @extend .h100
     box-sizing border-box
     font-size 0.75rem
-    
-    
+    .nuxt-page-wrapper
+      min-height 100vh
+      margin-bottom -4.625rem
+    .nuxt-page-wrapper:after
+      content ''
+      display block
+      height: 4.625rem
+    .page
+      @extend .w100

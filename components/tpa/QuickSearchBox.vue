@@ -53,6 +53,7 @@
           mg r, 0.5rem
           float left
           color #666
+          font-size 0.875rem
         .search-dimension-item-value:hover
           text-decoration underline
 </style>

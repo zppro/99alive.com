@@ -1,5 +1,5 @@
 <template lang="pug">
-  .container
+  .page
     h1 养老机构详情
 </template>
 <script>

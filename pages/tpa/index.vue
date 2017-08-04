@@ -1,5 +1,5 @@
 <template lang="pug">
-  .container
+  .page
     .columns
       .column.is-one-third
         quick-search-box(:current-city-name="currentCityName", :tpa-numbers="tpaNumbers", :search-dimensions="quickSearchDimensions")

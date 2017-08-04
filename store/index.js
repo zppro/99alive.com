@@ -14,7 +14,14 @@ export const state = () => ({
     {name: '招聘信息', path: '/job'}
   ],
   _cities: [],
-  _currentCity: {id: '010100', name: '杭州'}
+  _currentCity: {id: '010100', name: '杭州'},
+  _commonNavItems: [
+    {name: '关于我们', path: '/about-us'},
+    {name: '联系我们', path: '/contact-us'},
+    {name: '加盟合作', path: '/join-us'},
+    {name: '推广计划', path: '/promotion-planning'},
+    {name: '网站声明', path: '/statement'}
+  ]
 })
 
 export const getters = {
@@ -46,6 +53,9 @@ export const getters = {
       g[key].push(city)
       return g
     }, {})
+  },
+  commonNavItems (state) {
+    return state._commonNavItems
   }
 }
 

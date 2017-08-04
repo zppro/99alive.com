@@ -1,22 +1,18 @@
 <template lang="pug">
   footer.footer
     .footer-main.level.mg-center
-      .level-item
-        nuxt-link(to="/") 关于我们
-      .level-item
-        nuxt-link(to="/") 联系我们
-      .level-item
-        nuxt-link(to="/") 加盟合作
-      .level-item
-        nuxt-link(to="/") 推广计划
-      .level-item
-        nuxt-link(to="/") 网站声明
+      .level-item(v-for="item in commonNavItems")
+        nuxt-link(:to="item.path") {{item.name}}
     .content.mg-center.has-text-centered &copyright 2017 99alive.com 版权所有
 </template>
 <script>
+  import { mapGetters } from 'vuex'
   import HeaderCity from '~/components/HeaderCity.vue'
   import HeaderChannel from '~/components/HeaderChannel.vue'
   export default {
+    computed: {
+      ...mapGetters(['commonNavItems'])
+    },
     components: {
       HeaderCity,
       HeaderChannel
@@ -28,7 +24,7 @@
   .footer
     background-color #f1f1f1
     height 4.625rem
-    mg t, 2
+    mg t, 4.625
     .footer-main
       a
         color #999
