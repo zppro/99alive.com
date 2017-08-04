@@ -44,5 +44,10 @@ module.exports = {
     //   }]]]
     // }
   },
+  router: {
+    scrollBehavior: function (to, from, savedPosition) {
+      return false
+    }
+  },
   loading: { color: '#41B883' }
 }

@@ -21,9 +21,6 @@
   import AgencyCard from '~/components/tpa/AgencyCard'
   export default {
     async fetch ({store}) {
-//      await store.dispatch(`${tpaPrefix}fetchStats`)
-//      await store.dispatch(`${tpaPrefix}fetchSlidersInIndex`)
-//      await store.dispatch(`${tpaPrefix}fetchTabsInIndex`)
       await Promise.all([
         store.dispatch(`${tpaPrefix}fetchStats`),
         store.dispatch(`${tpaPrefix}fetchSlidersInIndex`),

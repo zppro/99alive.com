@@ -13,9 +13,9 @@ export const state = () => ({
     {name: '对比', path: '/tpa/compare'},
   ], // 当前频道栏目
   _stats: {tpaNumbers: 11},
-  _searchDimensionIds: ['99A01', '99A02', '99A03'],
+  _searchDimensionIds: ['99A01', '99A02', '99A03','99A04', '99A05', '99A06'],
   _searchDimensions: [],
-  _quickSearchDimensionIds: ['99A01', '99A02', '99A03'],
+  _quickSearchDimensionIds: ['99A02', '99A03', '99A04', '99A05'],
   _sliders: [
     {id: 'slider1', img: 'https://img2.okertrip.com/99alive-alpha/1.png'},
     {id: 'slider2', img: 'https://img2.okertrip.com/99alive-alpha/2.png'},
