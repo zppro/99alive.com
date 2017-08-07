@@ -23,12 +23,14 @@
   "homepage": "https://github.com/zppro/99alive.com#readme",
   "dependencies": {
     "axios": "^0.16.2",
+    "cube-brick": "^0.1.22",
     "normalize.css": "^7.0.0",
     "nuxt": "^1.0.0-rc3",
     "vuex-router-sync": "^4.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "babel-polyfill": "^6.23.0",
     "cross-env": "^5.0.1",
     "eslint": "^4.2.0",
     "eslint-config-standard": "^10.2.1",

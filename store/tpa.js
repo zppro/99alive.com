@@ -16,6 +16,7 @@ export const state = () => ({
   _searchDimensionIds: ['99A01', '99A02', '99A03','99A04', '99A05', '99A06'],
   _searchDimensions: [],
   _quickSearchDimensionIds: ['99A02', '99A03', '99A04', '99A05'],
+  _queryMultiDimensionIds: ['99A03', '99A04'],
   _sliders: [
     {id: 'slider1', img: 'https://img2.okertrip.com/99alive-alpha/1.png'},
     {id: 'slider2', img: 'https://img2.okertrip.com/99alive-alpha/2.png'},
@@ -39,6 +40,9 @@ export const getters = {
   },
   quickSearchDimensions (state) {
     return state._searchDimensions.filter(o => state._quickSearchDimensionIds.includes(o.key))
+  },
+  queryMultiDimensionIds (state) {
+    return state._queryMultiDimensionIds
   },
   sliders (state) {
     return state._sliders

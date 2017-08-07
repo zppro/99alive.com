@@ -9,21 +9,18 @@
     .card-content.search-dimension(v-for="dimension in searchDimensions")
       label {{dimension.name}}
       .search-dimension-content.is-clearfix
-        nuxt-link.search-dimension-item-value.hfx-center-v(v-for="(item, key) in dimension.value", :key="key", :to="'/tpa/query/'+key")
+        nuxt-link.search-dimension-item-value.hfx-center-v(v-for="(item, key) in dimension.value", :key="key", :to="queryUrl(dimension.key, key)")
           | {{item.name}}
-    //section.bed-nums.card-content.search-dimension
-    //  label 床位数
-    //  .search-dimension-content
-    //section.charge.card-content.search-dimension
-    //  label 收费标准
-    //  .search-dimension-content
-    //section.rating.card-content.search-dimension
-    //  label 机构评级
-    //  .search-dimension-content
 </template>
 <script>
   export default {
     props: ['currentCityName', 'tpaNumbers', 'searchDimensions'],
+    methods: {
+      queryUrl (dimentionKey, value) {
+        const arrQueryString = JSON.stringify([dimentionKey, value])
+        return `/tpa/query/${arrQueryString}`
+      }
+    }
   }
 </script>
 <style lang="stylus" scoped>

@@ -36,7 +36,7 @@ module.exports = {
   },
   plugins: ['~plugins/vuex-router-sync.js', '~plugins/axios.js'],
   build: {
-    vendor: ['axios'],
+    vendor: ['axios', 'babel-polyfill'],
     // babel: {
     //   plugins: [['component', [{
     //     libraryName: 'element-ui',

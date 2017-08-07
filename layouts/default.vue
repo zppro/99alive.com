@@ -3,7 +3,7 @@
     topbar
     headbar
     channel-nav
-    .container.nuxt-page-wrapper
+    .container
       nuxt
     footbar
 </template>

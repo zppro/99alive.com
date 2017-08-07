@@ -2,7 +2,7 @@
   div
     topbar
     headbar
-    .container.nuxt-page-wrapper.common-nav-container
+    .container.common-nav-container
       common-nav
       nuxt
     footbar
