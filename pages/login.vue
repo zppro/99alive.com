@@ -3,19 +3,27 @@
     .container
       .login-box.box
         .title.is-4 账号登录
-        .field.field-bottom
-          .control.is-label-text-3.has-icons-left.has-icons-right.has-label-left
+        .field
+          .control.is-label-text-3.has-icons-left.has-label-left
             span.icon.is-small.is-left
               i.fa.fa-user
             label.field-label.hfx-center-v 账号
-            input.input(type="text", placeholder="用户名/手机号/电子邮箱")
-        .field.field-bottom
-          .control.is-label-text-3.has-icons-left.has-icons-right.has-label-left
+            input.input(name="code", type="text", placeholder="用户名/手机号/电子邮箱", @blur="errors.code = false")
+        .field-tip
+          span.error.hfx-center-v(v-show="validated && errors['code']")
+            i.icon.fa.fa-minus-circle.hfx-center-v
+            | 请输入账号
+        .field
+          .control.is-label-text-3.has-icons-left.has-label-left
             span.icon.is-small.is-left
               i.fa.fa-key
             label.field-label.hfx-center-v 密码
-            input.input(type="password")
-        .field
+            input.input(name="password", type="password", placeholder="账号对应的密码", @blur="errors.password = false")
+        .field-tip
+          span.error.hfx-center-v(v-show="validated && errors['password']")
+            i.icon.fa.fa-minus-circle.hfx-center-v
+            | 请输入密码
+        .field.field-bottom
           .control
             label.remember-password.checkbox.hfx-center-v
               input(type="checkbox")
@@ -29,6 +37,15 @@
 </template>
 <script>
   export default {
+    data () {
+      return {
+        validated: false,
+        errors: {
+          code: true,
+          password: true
+        }
+      }
+    },
     layout: 'sign'
   }
 </script>
@@ -42,9 +59,9 @@
       position absolute
       top 3.125rem
       right 3.125rem
-      .field-bottom
-        mg b, 1.5
       .field
+        &:not(:last-child)
+          mg b, 0
         label
           color #333
         .input

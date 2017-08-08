@@ -8,18 +8,28 @@
       .columns
         .column.is-half
           .left-content
-            .field.field-bottom
+            .field
               .control.has-icons-left.has-icons-right.has-label-left
                 span.icon.is-small.is-left
                   i.fa.fa-user
                 label.field-label.hfx-center-v 用户名
-                input.input(type="text", placeholder="您的账户名和登录名")
-            .field.field-bottom
+                input.input(type="text", placeholder="您的账户名和登录名", @focus="tips.code = true", @blur="tips.code = false")
+                span.icon.is-small.is-right
+                  i.fa.fa-check-circle
+            .field-tip
+              span.hfx-center-v(v-show="tips['code']")
+                i.icon.fa.fa-info.hfx-center-v
+                | 支持中文,字母,数字,"_","-"的组合 6-30个字符
+            .field
               .control.has-icons-left.has-icons-right.has-label-left
                 span.icon.is-small.is-left
                   i.fa.fa-key
                 label.field-label.hfx-center-v 密码
-                input.input(type="password", placeholder="建议至少使用两种字母组合")
+                input.input(type="password", placeholder="建议至少使用两种字母组合", @focus="tips.password = true", @blur="tips.password = false")
+            .field-tip
+              span.hfx-center-v(v-show="tips['password']")
+                i.icon.fa.fa-info.hfx-center-v
+                | 建议使用字母,数字和符号两种及以上组合 6-30个字符
             .field.field-bottom
               .control.has-icons-left.has-icons-right.has-label-left
                 span.icon.is-small.is-left
@@ -63,9 +73,15 @@
 </template>
 <script>
   import { mapGetters } from 'vuex'
-  import NuxtLink from "nuxt/lib/app/components/nuxt-link";
   export default {
-    components: {NuxtLink},
+    data () {
+      return {
+        tips: {
+          code: false,
+          password: false
+        }
+      }
+    },
     layout: 'sign',
     computed: {
       ...mapGetters(['siteName'])
@@ -88,9 +104,9 @@
     .left-content
       bd r, #ddd
       pd l r, 4
-      .field-bottom
-        mg b, 2
       .field
+        &:not(:last-child)
+          mg b, 0
         label
           color #333
         .input
