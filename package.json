@@ -24,6 +24,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "cube-brick": "^0.1.22",
+    "font-awesome": "^4.7.0",
     "normalize.css": "^7.0.0",
     "nuxt": "^1.0.0-rc3",
     "vuex-router-sync": "^4.2.0"

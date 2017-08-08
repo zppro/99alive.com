@@ -5,7 +5,7 @@
       .column.is-three-quarters.hfx-center-v.no-login
         | 欢迎来到99为老网 请
         nuxt-link.to-login(to="/login") 登录
-        | 免费注册
+        nuxt-link.to-register(to="/reg/person") 免费注册
 </template>
 <script>
 </script>
@@ -24,4 +24,8 @@
       .to-login
         color #fc7205
         mg l r, 0.25
+      .to-register
+        color #999
+      .to-register:hover
+        text-decoration underline
 </style>

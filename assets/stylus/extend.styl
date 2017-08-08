@@ -1,3 +1,14 @@
+control_field-label()
+  position absolute
+  top 0
+  z-index 4
+  height 2.25em
+  color #333
+  font-size 1rem
+  left 0
+  text-indent .5em
+  letter-spacing .2rem
+
 .modal
   z-index 9999
 .columns
@@ -7,3 +18,29 @@
   @extend .mg-0
 .column
   @extend .pd-0
+.field
+  .field-label
+    control_field-label()
+    width 6.75em
+  .control.is-label-text-3
+    .field-label
+      control-field-label()
+      width 4.5em
+  .control.has-label-left
+    .input, .select select
+      padding-left 6.75em
+  .control.has-label-left.is-label-text-3
+    .input, .select select
+      padding-left 4.5em
+  .control.has-icons-left.has-label-left
+    .field-label
+      left 2.25em
+    .input, .select select
+      padding-left 9em
+  .control.has-icons-left.has-label-left.is-label-text-3
+    .field-label
+      left 2.25em
+    .input, .select select
+      padding-left 6.75em
+      
+  

@@ -7,21 +7,29 @@ import { indexTypes, tpaTypes } from './mutation-types'
 
 export const state = () => ({
   _$keys: {},
-  _channels: [
-    {name: '养老机构', path: '/tpa'},
-    {name: '为老服务', path: '/srv'},
-    {name: '照护人才', path: '/tnm'},
-    {name: '招聘信息', path: '/job'}
-  ],
+  _site: {
+    name: '99为老网',
+    _channels: [
+      {name: '养老机构', path: '/tpa'},
+      {name: '为老服务', path: '/srv'},
+      {name: '照护人才', path: '/tnm'},
+      {name: '招聘信息', path: '/job'}
+    ],
+    _commonNavItems: [
+      {name: '关于我们', path: '/about-us'},
+      {name: '联系我们', path: '/contact-us'},
+      {name: '加盟合作', path: '/join-us'},
+      {name: '推广计划', path: '/promotion-planning'},
+      {name: '网站声明', path: '/statement'}
+    ],
+    _signs: [
+      {name: '登录', path: '/login'},
+      {name: '欢迎注册', path: '/reg/person'},
+      {name: '欢迎注册', path: '/reg/agency'}
+    ]
+  },
   _cities: [],
-  _currentCity: {id: '010100', name: '杭州'},
-  _commonNavItems: [
-    {name: '关于我们', path: '/about-us'},
-    {name: '联系我们', path: '/contact-us'},
-    {name: '加盟合作', path: '/join-us'},
-    {name: '推广计划', path: '/promotion-planning'},
-    {name: '网站声明', path: '/statement'}
-  ]
+  _currentCity: {id: '010100', name: '杭州'}
 })
 
 export const getters = {
@@ -29,7 +37,16 @@ export const getters = {
     return state._$keys
   },
   channels (state) {
-    return state._channels
+    return state._site._channels
+  },
+  commonNavItems (state) {
+    return state._site._commonNavItems
+  },
+  currentSign (state) {
+    return state._site._signs.find(o => state.route.path.endsWith(o.path))
+  },
+  siteName (state) {
+    return state._site.name
   },
   currentChannelId (state) {
     return state.route.path.split('/')[1]
@@ -53,9 +70,6 @@ export const getters = {
       g[key].push(city)
       return g
     }, {})
-  },
-  commonNavItems (state) {
-    return state._commonNavItems
   }
 }
 

@@ -24,7 +24,7 @@
   .footer
     background-color #f1f1f1
     height 4.625rem
-    mg t, 4.625
+    mg t, 2
     .footer-main
       a
         color #999

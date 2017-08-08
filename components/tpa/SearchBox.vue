@@ -8,9 +8,12 @@
           template(v-if="isInMultiSelect(dimension.key)")
             .search-dimension-content.is-clearfix
               .search-dimension-item.value-multi.hfx-center-v(v-for="(item, key) in dimension.value", :key="key")
-                .checkbox
+                label.checkbox.hfx-center-v
+                  input(:value="key", type="checkbox", v-model="multiSelect[dimension.key].values")
+                  | {{item.name}}
+                //.checkbox
                   input(:id="dimension.key + '-' + key", :value="key", type="checkbox", v-model="multiSelect[dimension.key].values")
-                label(:for="dimension.key + '-' + key") {{item.name}}
+                //label(:for="dimension.key + '-' + key") {{item.name}}
             .is-in-multi-select.search-multi-action.has-text-centered(v-if="isInMultiSelect(dimension.key)")
               a.button.is-small(@click="confirmMulti(dimension.key)") 确定
               a.button.is-small(@click="cancelMulti(dimension.key)") 取消
@@ -172,8 +175,6 @@
           bd a, #fc7205
         .value-multi
           border none
-          label
-            mg l, .25rem
       .is-in-multi-select
         padding .8rem
         .button
