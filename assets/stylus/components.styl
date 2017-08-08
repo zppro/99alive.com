@@ -1,0 +1,71 @@
+popover-color = rgba(252, 114, 5, 1)
+.popover-down
+  margin-bottom: 11px
+  width 100%
+  background-color popover-color
+  bd a popover-color
+  border-radius 2px
+  position relative
+  .arrow
+    left 50%
+    position absolute
+    width 0
+    height 0
+    border-style solid
+    border-width 11px
+    bottom -11px
+    margin-left -11px
+    border-color transparent
+    border-top-color popover-color
+    border-bottom-width 0
+    &::after
+      border-style solid
+      border-width 3px
+      bottom 1px
+      position absolute
+      width 0
+      height 0
+      border-color transparent
+      margin-left -10px
+      border-top-color white
+      border-bottom-width 0
+      content ' '
+  .popover-content
+    color white
+    font-size 1rem
+    text-align center
+.popover-up
+  margin-top: 11px
+  width 100%
+  background-color popover-color
+  bd a popover-color
+  border-radius 2px
+  position relative
+  .arrow
+    left 50%
+    position absolute
+    width 0
+    height 0
+    border-style solid
+    border-width 11px
+    top -11px
+    margin-left -11px
+    border-color transparent
+    border-bottom-color popover-color
+    border-top-width 0
+    &::after
+      border-style solid
+      border-width 3px
+      top 1px
+      position absolute
+      width 0
+      height 0
+      border-color transparent
+      margin-left -10px
+      border-bottom-color white
+      border-top-width 0
+      content ' '
+  .popover-content
+    color white
+    font-size 1rem
+    text-align center

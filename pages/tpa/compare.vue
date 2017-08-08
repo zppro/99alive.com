@@ -1,8 +1,10 @@
 <template lang="pug">
-    h1 养老机构查找列表
+  .page
+    h1 养老机构对比
 </template>
 <script>
 
 </script>
 <style lang="stylus" scoped>
+
 </style>

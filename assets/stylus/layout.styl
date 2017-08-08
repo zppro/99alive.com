@@ -1,9 +1,15 @@
 html
+  overflow auto
   @extend .h100
   body
     @extend .h100
     box-sizing border-box
-    font-size 12px
-    .container
-      .column
-        @extend .pd-0
+    font-size 0.75rem
+    .page
+      @extend .w100
+      min-height 37.5rem
+      position relative
+      label.checkbox
+        input
+          mg r, .25
+          vertical-align baseline

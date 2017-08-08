@@ -1,12 +1,12 @@
 {
   "name": "99alive.com",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nuxt",
+    "dev": "cross-env HOST=0.0.0.0 nuxt",
     "build": "cross-env NODE_ENV=production nuxt build",
-    "start": "cross-env HOST=0.0.0.0 nuxt start",
+    "start": "cross-env HOST=0.0.0.0 API_URL=https://api.99alive.com/apis nuxt start",
     "gen": "nuxt generate",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js,.vue ."
@@ -23,15 +23,15 @@
   "homepage": "https://github.com/zppro/99alive.com#readme",
   "dependencies": {
     "axios": "^0.16.2",
-    "bulma": "^0.4.3",
-    "element-ui": "^1.4.0",
+    "cube-brick": "^0.1.22",
+    "font-awesome": "^4.7.0",
     "normalize.css": "^7.0.0",
-    "nuxt": "^1.0.0-alpha.5",
+    "nuxt": "^1.0.0-rc3",
     "vuex-router-sync": "^4.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "babel-plugin-component": "^0.10.0",
+    "babel-polyfill": "^6.23.0",
     "cross-env": "^5.0.1",
     "eslint": "^4.2.0",
     "eslint-config-standard": "^10.2.1",

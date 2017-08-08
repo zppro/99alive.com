@@ -4,17 +4,13 @@
       .column.is-one-quarter.hfx-center-v
         nuxt-link.header-logo(to="/")
           img(src="~static/logo-nav.png")
-        header-city
-      .column
-        header-channel
+        .title.is-3 {{currentSign ? currentSign.name : ''}}
 </template>
 <script>
-  import HeaderCity from '~/components/HeaderCity.vue'
-  import HeaderChannel from '~/components/HeaderChannel.vue'
+  import { mapGetters } from 'vuex'
   export default {
-    components: {
-      HeaderCity,
-      HeaderChannel
+    computed: {
+      ...mapGetters(['currentSign'])
     }
   }
 </script>
