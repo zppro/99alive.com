@@ -40,7 +40,7 @@
     methods: {
       ...mapActions({
         fetchAgenciesInIndex: `${tpaPrefix}fetchAgenciesInIndex`
-      }),
+      })
     },
     components: {
       Loading,

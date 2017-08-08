@@ -2,7 +2,7 @@
   .page
     search-box.search-box-in-query(:search-dimensions="searchDimensions", :multi-check-dimension-ids="queryMultiDimensionIds", :query-string="queryString")
     .search-result
-      .order-switch.level
+      orderbar(:order-items="queryOrders", @order-change="orderChanged")
         .level-left
           .order-item.level-item 默认排序
           .level-item |
@@ -12,12 +12,23 @@
           .level-item |
           .order-item.level-item 床位数
       .search-content
+        .agency-list(v-if="agencies.length > 0")
+          agency-card(v-for="agency in agencies", :key="agency.id", :agency="agency")
+        loading(size="large", v-if="isLoading")
 </template>
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   import { tpaPrefix } from '~/store/module-prefixs'
+  import Loading from '~/components/Loading'
   import SearchBox from '~/components/tpa/SearchBox'
+  import Orderbar from '~/components/Orderbar'
+  import AgencyCard from '~/components/tpa/AgencyCard'
   export default {
+    data () {
+      return {
+        isLoading: false
+      }
+    },
     async fetch ({store}) {
 
     },
@@ -28,10 +39,25 @@
       ...mapGetters({
         searchDimensions: `${tpaPrefix}searchDimensions`,
         queryMultiDimensionIds: `${tpaPrefix}queryMultiDimensionIds`,
+        queryOrders: `${tpaPrefix}queryOrders`,
+        agencies: `${tpaPrefix}agencies`
+      })
+    },
+    methods: {
+      async orderChanged (order) {
+        this.isLoading = true
+        await this.fetchAgenciesInQuery(order)
+        this.isLoading = false
+      },
+      ...mapActions({
+        fetchAgenciesInQuery: `${tpaPrefix}fetchAgenciesInQuery`
       })
     },
     components: {
-      SearchBox
+      Loading,
+      SearchBox,
+      Orderbar,
+      AgencyCard
     }
   }
 </script>

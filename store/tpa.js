@@ -25,7 +25,13 @@ export const state = () => ({
   _tabs: [
     {id: 'recommend', name: '为您推荐', data: 'LAZY_LOAD'},
     {id: 'recently', name: '最近加入', data: 'LAZY_LOAD'}
-  ]
+  ],
+  _queryOrders: [
+    {id: 'default', name: '默认排序', orderBy: ''},
+    {id: 'recently', name: '最新加入', orderBy: '-check_in_time'},
+    {id: 'chargeAdvertised', name: '收费标准', orderBy: '-charge_advertised'}
+  ],
+  _agencies: []
 })
 
 export const getters = {
@@ -49,6 +55,12 @@ export const getters = {
   },
   tabs (state) {
     return state._tabs
+  },
+  queryOrders (state) {
+    return state._queryOrders
+  },
+  agencies (state) {
+    return state._agencies
   }
 }
 export const mutations = {
@@ -67,6 +79,9 @@ export const mutations = {
   [tpaTypes.SET_TAB_AGENCIES] (state, {id, agencies}) {
     let tab = state._tabs.find(o => o.id === id)
     tab && Vue.set(tab, 'data', agencies)
+  },
+  [tpaTypes.SET_AGENCIES] (state, agencies) {
+    agencies && (state._agencies = agencies)
   }
 }
 
@@ -88,5 +103,9 @@ export const actions = {
       const agencies = await endpoint.api(`${state.apiFragment}/${id}AgenciesInIndex`)
       commit(tpaTypes.SET_TAB_AGENCIES, {id, agencies})
     }
+  },
+  async fetchAgenciesInQuery ({state, commit}) {
+    const agencies = await endpoint.api(`${state.apiFragment}/agenciesInQuery`)
+    commit(tpaTypes.SET_AGENCIES, agencies)
   }
 }

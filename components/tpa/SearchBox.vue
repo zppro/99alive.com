@@ -1,6 +1,5 @@
 <template lang="pug">
   .card.search-box
-    | {{multiSelect}}
     .card-content.search-dimension(v-for="dimension in searchDimensions", :class="{'multi-search-dimension': isInMultiSelect(dimension.key)}")
       .columns
         .column.is-1
@@ -149,6 +148,7 @@
   .search-box
     min-height 18.25rem
     padding .625rem 1.25rem
+    pd t, 0
     label
       font-size 1rem
       color #333
