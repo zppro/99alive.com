@@ -8,21 +8,21 @@
             span.icon.is-small.is-left
               i.fa.fa-user
             label.field-label.hfx-center-v 账号
-            input.input(name="code", type="text", placeholder="用户名/手机号/电子邮箱", @blur="errors.code = false")
+            input.input(v-model="code", type="text", placeholder="用户名/手机号/电子邮箱", @blur="$validate('code')")
         .field-tip
-          span.error.hfx-center-v(v-show="validated && errors['code']")
+          span.error.hfx-center-v(v-show="validators.test('code')")
             i.icon.fa.fa-minus-circle.hfx-center-v
-            | 请输入账号
+            | {{$errors['code']}}
         .field
           .control.is-label-text-3.has-icons-left.has-label-left
             span.icon.is-small.is-left
               i.fa.fa-key
             label.field-label.hfx-center-v 密码
-            input.input(name="password", type="password", placeholder="账号对应的密码", @blur="errors.password = false")
+            input.input(type="password", v-model="password", placeholder="账号对应的密码", @blur="$validate('password')")
         .field-tip
-          span.error.hfx-center-v(v-show="validated && errors['password']")
+          span.error.hfx-center-v(v-show="validators.test('password')")
             i.icon.fa.fa-minus-circle.hfx-center-v
-            | 请输入密码
+            | {{$errors['password']}}
         .field.field-bottom
           .control
             label.remember-password.checkbox.hfx-center-v
@@ -30,23 +30,45 @@
               | 记住密码
             nuxt-link.forget-password.has-text-right(to="/forget-password") 忘记密码
         .content
-          .login-btn.button.is-large.hfx-center 登录
+          .login-btn.button.is-large.hfx-center(@click="doLogin") 登录
         .field
           .control.is-pulled-right
             nuxt-link.to-register(to="/reg/person") 立即注册
 </template>
 <script>
   export default {
+    layout: 'sign',
     data () {
       return {
-        validated: false,
-        errors: {
-          code: true,
-          password: true
+        code: '',
+        password: '',
+        validated: true,
+        validators: {
+//          $msgs: {
+//            code: `请输入账号`,
+//            password: `请输入密码`
+//          },
+          code: {
+            name: '账号',
+            required: true
+          },
+          password: {
+            name: '密码',
+            required: true
+          }
         }
       }
     },
-    layout: 'sign'
+    methods: {
+      checkLogin (){
+
+      },
+      doLogin () {
+        if(this.$validate()) {
+          console.log('do login...')
+        }
+      }
+    }
   }
 </script>
 <style lang="stylus" scoped>
