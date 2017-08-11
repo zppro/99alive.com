@@ -8,9 +8,9 @@
             span.icon.is-small.is-left
               i.fa.fa-user
             label.field-label.hfx-center-v 账号
-            input.input(v-model="code", type="text", placeholder="用户名/手机号/电子邮箱", @blur="$validate('code')")
+            input.input(type="text", v-model="code", placeholder="用户名/手机号/电子邮箱", @blur="$validate('code')")
         .field-tip
-          span.error.hfx-center-v(v-show="validators.test('code')")
+          span.help.is-danger.hfx-center-v(v-show="!validators.test('code')")
             i.icon.fa.fa-minus-circle.hfx-center-v
             | {{$errors['code']}}
         .field
@@ -20,7 +20,7 @@
             label.field-label.hfx-center-v 密码
             input.input(type="password", v-model="password", placeholder="账号对应的密码", @blur="$validate('password')")
         .field-tip
-          span.error.hfx-center-v(v-show="validators.test('password')")
+          span.help.is-danger.hfx-center-v(v-show="!validators.test('password')")
             i.icon.fa.fa-minus-circle.hfx-center-v
             | {{$errors['password']}}
         .field.field-bottom
@@ -42,7 +42,6 @@
       return {
         code: '',
         password: '',
-        validated: true,
         validators: {
 //          $msgs: {
 //            code: `请输入账号`,

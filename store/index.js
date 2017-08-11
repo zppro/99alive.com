@@ -86,7 +86,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async nuxtServerInit ({state, getters, commit}, {app, isServer}) {
+  async nuxtServerInit ({state, getters, commit}, {app, req, res}) {
     try {
       console.log('--------------------nuxtServerInit:')
       await axios.all([
@@ -98,6 +98,10 @@ export const actions = {
         commit(indexTypes.SET_CITIES, cities)
         commit(tpaPrefix + tpaTypes.SET_SEARCH_DIMENSIONS, searchDimensions)
       }))
+      console.log('--------------------process cookie:', res.session, req.session)
+      if (res.session && res.session.vcode) {
+        console.log('req-vcode:', res.session.vcode)
+      }
       // const cities = await app.api(`/share/district/cities/,_id name first_letter hot`)
       // console.log('ret:', cities, bedNumSearchDimension, chargeSearchDimentsion, ratingSearchDimension)
 

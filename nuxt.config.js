@@ -39,12 +39,9 @@ module.exports = {
   plugins: ['~plugins/vue-validator.js', '~plugins/vuex-router-sync.js', '~plugins/axios.js'],
   build: {
     vendor: ['axios', 'babel-polyfill'],
-    // babel: {
-    //   plugins: [['component', [{
-    //     libraryName: 'element-ui',
-    //     styleLibraryName: 'theme-default'
-    //   }]]]
-    // }
+    babel: {
+      plugins: ['transform-function-bind']
+    }
   },
   router: {
     scrollBehavior: function (to, from, savedPosition) {

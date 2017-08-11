@@ -2,24 +2,53 @@
  * Created by zppro on 17-7-27.
  */
 import Vue from 'vue'
-
+import { isObject, isFunction } from '~/assets/js/utils'
 const $defaults = {
   REQUIRED: 'required',
+  PATTERN: 'pattern',
+  MATCH: 'match',
+  PREDICATE: 'predicate',
   NUMBER: 'number'
 }
 
 const rules = [
-  {name: $defaults.REQUIRED, msg: `{{field}}不能为空`}
+  {name: $defaults.REQUIRED, msg: `{{field}}不能为空`},
+  {name: $defaults.PATTERN, msg: `{{field}}不匹配模式`},
+  {name: $defaults.NUMBER, msg: `{{field}}必须是数字`},
+  {name: $defaults.MATCH, msg: `{{field}}与{{field2}}不一致`},
+  {name: $defaults.PREDICATE, msg: `{{field}}失败(predicate)`}
 ]
 
-const validateField = (value, validator, msg) => {
+const validateField = function (value, validator, msg) {
   let fieldErrors = []
   let ruleNames = Object.keys(validator)
   for(let ruleName of ruleNames) {
+    let rule = rules.find(o => o.name === ruleName)
+    let errMsg = msg || (rule && rule.msg.replace(/\{\{field\}\}/gi, validator.name))
     if ($defaults.REQUIRED === ruleName) {
-      let rule = rules.find(o => o.name === ruleName)
-      if(value === '') {
-        fieldErrors.push(msg || (rule && rule.msg.replace(/\{\{field\}\}/gi, validator.name)))
+      if (value === '') {
+        !fieldErrors.includes(errMsg) && fieldErrors.push(errMsg)
+      }
+    } else if ($defaults.PATTERN === ruleName) {
+      if (!validator[ruleName].test(value)) {
+        !fieldErrors.includes(errMsg) && fieldErrors.push(errMsg)
+      }
+    } else if ($defaults.MATCH === ruleName) {
+      let matchValue, useEmpty
+      if (isObject(validator[ruleName])) {
+        matchValue = this[validator[ruleName].field]
+        useEmpty = validator[ruleName].useEmpty
+      } else {
+        matchValue = this[validator[ruleName]]
+        useEmpty = true
+      }
+      if ((useEmpty || matchValue) && matchValue !== value) {
+        !fieldErrors.includes(errMsg) && fieldErrors.push(errMsg)
+      }
+    } else if ($defaults.PREDICATE === ruleName) {
+      const predicator = validator[ruleName]
+      if (isFunction(predicator) && !predicator(value)){
+        !fieldErrors.includes(errMsg) && fieldErrors.push(errMsg)
       }
     }
   }
@@ -40,9 +69,9 @@ const VueValidator = {
           for(let field of Object.keys(this.validators)) {
             $errors[field] = ' '
           }
-          console.log($errors)
+          // console.log($errors)
           Vue.set(this.validators, '$errors', $errors)
-          Vue.set(this.validators, 'test', field => this.validators.$errors[field].trim())
+          Vue.set(this.validators, 'test', field => !this.validators.$errors[field].trim())
         }
       }
     })
@@ -50,14 +79,14 @@ const VueValidator = {
       if (!this.validators) return true
       if (field) {
         let value = this[field]
-        let fieldErrors = validateField(value, this.validators[field], this.validators.$msgs && this.validators.$msgs[field])
+        let fieldErrors = this::validateField(value, this.validators[field], this.validators.$msgs && this.validators.$msgs[field])
         Vue.set(this.validators.$errors, field, fieldErrors.join())
         return fieldErrors.length === 0
       } else {
         let result = true
         for(let field of Object.keys(this.validators)) {
           let value = this[field]
-          let fieldErrors = validateField(value, this.validators[field], this.validators.$msgs && this.validators.$msgs[field])
+          let fieldErrors = this::validateField(value, this.validators[field], this.validators.$msgs && this.validators.$msgs[field])
           Vue.set(this.validators.$errors, field, fieldErrors.join())
           result = result && fieldErrors.length === 0
         }
