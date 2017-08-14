@@ -14,12 +14,12 @@
                 span.icon.is-small.is-left
                   i.fa.fa-user
                 label.field-label.hfx-center-v 用户名
-                input.input(type="text", v-model="code", placeholder="您的账户名和登录名", @blur="$validate('code')", :class="{'is-success': code && validators.test('code'), 'is-danger': !validators.test('code')}")
+                input.input(type="text", v-model="code", placeholder="您的账户名和登录名", @input="$validate('code')", @blur="$validate('code')", :class="{'is-success': validators.success('code'), 'is-danger': validators.error('code')}")
                 span.icon.is-small.is-right
-                  i.fa.fa-check-circle.help.is-success(v-show="code && validators.test('code')")
-                  i.fa.fa-warning.help.is-danger(v-show="!validators.test('code')")
+                  i.fa.fa-check-circle.help.is-success(v-show="code && validators.success('code')")
+                  i.fa.fa-warning.help.is-danger(v-show="validators.error('code')")
             .field-tip
-              span.hfx-center-v.help.is-danger(v-show="!validators.test('code')")
+              span.hfx-center-v.help.is-danger(v-show="validators.error('code')")
                 i.icon.fa.fa-info.hfx-center-v
                 | {{$errors['code']}}
             .field
@@ -28,12 +28,12 @@
                 span.icon.is-small.is-left
                   i.fa.fa-key
                 label.field-label.hfx-center-v 密码
-                input.input(type="password", v-model="password", placeholder="建议至少使用两种字母组合", @blur="$validate('password')", :class="{'is-success': password && validators.test('password'), 'is-danger': !validators.test('password')}")
+                input.input(type="password", v-model="password", placeholder="建议至少使用两种字母组合", @input="$validate('password')", @blur="$validate('password')", :class="{'is-success': validators.success('password'), 'is-danger': validators.error('password')}")
                 span.icon.is-small.is-right
-                  i.fa.fa-check-circle.help.is-success(v-show="password && validators.test('password')")
-                  i.fa.fa-warning.help.is-danger(v-show="!validators.test('password')")
+                  i.fa.fa-check-circle.help.is-success(v-show="validators.success('password')")
+                  i.fa.fa-warning.help.is-danger(v-show="validators.error('password')")
             .field-tip
-              span.hfx-center-v.help.is-danger(v-show="!validators.test('password')")
+              span.hfx-center-v.help.is-danger(v-show="validators.error('password')")
                 i.icon.fa.fa-info.hfx-center-v
                 | {{$errors['password']}}
             .field
@@ -42,12 +42,12 @@
                 span.icon.is-small.is-left
                   i.fa.fa-key
                 label.field-label.hfx-center-v 确认密码
-                input.input(type="password", v-model="password2", placeholder="请再次输入密码", @blur="$validate('password2')", :class="{'is-success': password2 && validators.test('password2'), 'is-danger': !validators.test('password2')}")
+                input.input(type="password", v-model="password2", placeholder="请再次输入密码", @input="$validate('password2')", @blur="$validate('password2')", :class="{'is-success': validators.success('password2'), 'is-danger': validators.error('password2')}")
                 span.icon.is-small.is-right
-                  i.fa.fa-check-circle.help.is-success(v-show="password2 && validators.test('password2')")
-                  i.fa.fa-warning.help.is-danger(v-show="!validators.test('password2')")
+                  i.fa.fa-check-circle.help.is-success(v-show="validators.success('password2')")
+                  i.fa.fa-warning.help.is-danger(v-show="validators.error('password2')")
             .field-tip
-              span.hfx-center-v.help.is-danger(v-show="!validators.test('password2')")
+              span.hfx-center-v.help.is-danger(v-show="validators.error('password2')")
                 i.icon.fa.fa-info.hfx-center-v
                 | {{$errors['password2']}}
             .field
@@ -56,12 +56,12 @@
                 span.icon.is-small.is-left
                   i.fa.fa-mobile
                 label.field-label.hfx-center-v 手机号
-                input.input(type="text", v-model="phone", placeholder="建议使用常用手机", @blur="$validate('phone')", :class="{'is-success': phone && validators.test('phone'), 'is-danger': !validators.test('phone')}")
+                input.input(type="text", v-model="phone", placeholder="建议使用常用手机", @input="$validate('phone')", :class="{'is-success': validators.success('phone'), 'is-danger': validators.error('phone')}")
                 span.icon.is-small.is-right
-                  i.fa.fa-check-circle.help.is-success(v-show="phone && validators.test('phone')")
-                  i.fa.fa-warning.help.is-danger(v-show="!validators.test('phone')")
+                  i.fa.fa-check-circle.help.is-success(v-show="validators.success('phone')")
+                  i.fa.fa-warning.help.is-danger(v-show="validators.error('phone')")
             .field-tip
-              span.hfx-center-v.help.is-danger(v-show="!validators.test('phone')")
+              span.hfx-center-v.help.is-danger(v-show="validators.error('phone')")
                 i.icon.fa.fa-info.hfx-center-v
                 | {{$errors['phone']}}
             .columns
@@ -72,15 +72,15 @@
                     span.icon.is-small.is-left
                       i.fa.fa-info
                     label.field-label.hfx-center-v 验证码
-                    input.input(type="text", v-model="vcode", placeholder="请输入右边验证码", @blur="$validate('vcode')", :class="{'is-success': vcode && validators.test('vcode'), 'is-danger': !validators.test('vcode')}")
+                    input.input(type="text", v-model="vcode", placeholder="请输入右边验证码", @input="$validate('vcode')", :class="{'is-success': validators.success('vcode'), 'is-danger': validators.error('vcode')}")
                     span.icon.is-small.is-right
-                      i.fa.fa-check-circle.help.is-success(v-show="phone && validators.test('vcode')")
-                      i.fa.fa-warning.help.is-danger(v-show="!validators.test('vcode')")
+                      i.fa.fa-check-circle.help.is-success(v-show="validators.success('vcode')")
+                      i.fa.fa-warning.help.is-danger(v-show="validators.error('vcode')")
               .column.hfx-center
                   figure.image.vcode-image(@click="refreshVcode")
                     img(:src="api_url + '/share/vcode?t=' + vcode_ts")
             .field-tip
-              span.hfx-center-v.help.is-danger(v-show="!validators.test('vcode')")
+              span.hfx-center-v.help.is-danger(v-show="validators.error('vcode')")
                 i.icon.fa.fa-info.hfx-center-v
                 | {{$errors['vcode']}}
             .field.field-bottom
@@ -97,7 +97,7 @@
                   nuxt-link.terms(to="/person-terms") 《{{siteName}}个人用户协议》
                   nuxt-link.terms(to="/statement") 《隐私政策》
             .btns.content
-              .login-btn.button.is-large.hfx-center 登录
+              .login-btn.button.is-large.hfx-center(@click="doReg") 登录
         .column
           .right-content
             p
@@ -107,7 +107,9 @@
               nuxt-link.to-reg-agency(to="/reg/agency") 机构用户注册
 </template>
 <script>
+  import { tpaPrefix } from '~/store/module-prefixs'
   import { mapGetters } from 'vuex'
+  import { api } from '~/plugins/axios'
   import { isPhone } from '~/assets/js/utils'
   export default {
     layout: 'sign',
@@ -127,6 +129,9 @@
             password2: `二次输入密码必须一致`,
             phone: `手机格式错误`,
             vcode: `验证码错误`
+          },
+          $valiatingWhen: {
+            vcode: v => v && v.length === 5
           },
           code: {
             name: '账号',
@@ -150,7 +155,7 @@
           vcode: {
             name: '验证码',
             required: true,
-            match: 'rcode'
+            predicate: this.verfiyCode
           }
         }
       }
@@ -165,6 +170,19 @@
     methods: {
       refreshVcode () {
         this.vcode_ts = new Date()
+      },
+      doReg () {
+        if(this.$validate()) {
+          console.log('do reg...')
+        }
+      },
+      async verfiyCode () {
+//        console.log('verifyCode:', api)
+        if(this.vcode.length === 5) {
+          return await api.post(`/share/vcode`, {vcode: this.vcode})
+        } else {
+          return false
+        }
       }
     }
   }

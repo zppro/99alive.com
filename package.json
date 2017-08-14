@@ -1,6 +1,6 @@
 {
   "name": "99alive.com",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "nuxt": "^1.0.0-rc3",
+    "qs": "^6.5.0",
     "vuex-router-sync": "^4.2.0"
   },
   "devDependencies": {

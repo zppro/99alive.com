@@ -10,7 +10,7 @@
             label.field-label.hfx-center-v 账号
             input.input(type="text", v-model="code", placeholder="用户名/手机号/电子邮箱", @blur="$validate('code')")
         .field-tip
-          span.help.is-danger.hfx-center-v(v-show="!validators.test('code')")
+          span.help.is-danger.hfx-center-v(v-show="validators.error('code')")
             i.icon.fa.fa-minus-circle.hfx-center-v
             | {{$errors['code']}}
         .field
@@ -20,7 +20,7 @@
             label.field-label.hfx-center-v 密码
             input.input(type="password", v-model="password", placeholder="账号对应的密码", @blur="$validate('password')")
         .field-tip
-          span.help.is-danger.hfx-center-v(v-show="!validators.test('password')")
+          span.help.is-danger.hfx-center-v(v-show="validators.error('password')")
             i.icon.fa.fa-minus-circle.hfx-center-v
             | {{$errors['password']}}
         .field.field-bottom

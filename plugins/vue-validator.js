@@ -3,6 +3,7 @@
  */
 import Vue from 'vue'
 import { isObject, isFunction } from '~/assets/js/utils'
+
 const $defaults = {
   REQUIRED: 'required',
   PATTERN: 'pattern',
@@ -19,7 +20,9 @@ const rules = [
   {name: $defaults.PREDICATE, msg: `{{field}}失败(predicate)`}
 ]
 
-const validateField = function (value, validator, msg) {
+const valiatingWhenNotEmpty = v => !!v
+
+const validateField = async function (value, validator, msg) {
   let fieldErrors = []
   let ruleNames = Object.keys(validator)
   for(let ruleName of ruleNames) {
@@ -47,7 +50,8 @@ const validateField = function (value, validator, msg) {
       }
     } else if ($defaults.PREDICATE === ruleName) {
       const predicator = validator[ruleName]
-      if (isFunction(predicator) && !predicator(value)){
+      // console.log('validateField', value, validator.name)
+      if (isFunction(predicator) && !await predicator(value)) { //debounce(predicator, 1000, true)(value) predicator(value)
         !fieldErrors.includes(errMsg) && fieldErrors.push(errMsg)
       }
     }
@@ -71,22 +75,30 @@ const VueValidator = {
           }
           // console.log($errors)
           Vue.set(this.validators, '$errors', $errors)
-          Vue.set(this.validators, 'test', field => !this.validators.$errors[field].trim())
+          // Vue.set(this.validators, 'test', field => !this.validators.$errors[field].trim())
+          Vue.set(this.validators, 'success', field => {
+            let valiatingWhen = this.validators.$valiatingWhen[field]
+            if (!isFunction(valiatingWhen)){
+              valiatingWhen = valiatingWhenNotEmpty
+            }
+            return valiatingWhen(this[field]) && !this.validators.$errors[field].trim()
+          })
+          Vue.set(this.validators, 'error', field => this.validators.$errors[field].trim())
         }
       }
     })
-    Vue.prototype.$validate = function (field) {
+    Vue.prototype.$validate = async function (field) {
       if (!this.validators) return true
       if (field) {
         let value = this[field]
-        let fieldErrors = this::validateField(value, this.validators[field], this.validators.$msgs && this.validators.$msgs[field])
+        let fieldErrors = await this::validateField(value, this.validators[field], this.validators.$msgs && this.validators.$msgs[field])
         Vue.set(this.validators.$errors, field, fieldErrors.join())
         return fieldErrors.length === 0
       } else {
         let result = true
         for(let field of Object.keys(this.validators)) {
           let value = this[field]
-          let fieldErrors = this::validateField(value, this.validators[field], this.validators.$msgs && this.validators.$msgs[field])
+          let fieldErrors = await this::validateField(value, this.validators[field], this.validators.$msgs && this.validators.$msgs[field])
           Vue.set(this.validators.$errors, field, fieldErrors.join())
           result = result && fieldErrors.length === 0
         }

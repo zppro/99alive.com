@@ -2,7 +2,7 @@
  * Created by zppro on 17-7-27.
  */
 import Vue from 'vue'
-import { endpoint } from '~/plugins/axios'
+import { api } from '~/plugins/axios'
 import { tpaTypes } from './mutation-types'
 
 export const state = () => ({
@@ -87,25 +87,25 @@ export const mutations = {
 
 export const actions = {
   async fetchStats ({state, commit}) {
-    const stats = await endpoint.api(`${state.apiFragment}/stats`)
+    const stats = await api(`${state.apiFragment}/stats`)
     commit(tpaTypes.SET_STATS, stats)
   },
   async fetchSlidersInIndex ({state, commit}) {
-    const sliders = await endpoint.api(`${state.apiFragment}/slidersInIndex`)
+    const sliders = await api(`${state.apiFragment}/slidersInIndex`)
     commit(tpaTypes.SET_SLIDERS, sliders)
   },
   async fetchTabsInIndex ({state, commit}) {
-    const tabs = await endpoint.api(`${state.apiFragment}/tabsInIndex`)
+    const tabs = await api(`${state.apiFragment}/tabsInIndex`)
     commit(tpaTypes.SET_TABS, tabs)
   },
   async fetchAgenciesInIndex ({rootGetters, state, commit}, {id, data}) {
     if(rootGetters.$keys.LAZY_LOAD === data) {
-      const agencies = await endpoint.api(`${state.apiFragment}/${id}AgenciesInIndex`)
+      const agencies = await api(`${state.apiFragment}/${id}AgenciesInIndex`)
       commit(tpaTypes.SET_TAB_AGENCIES, {id, agencies})
     }
   },
   async fetchAgenciesInQuery ({state, commit}) {
-    const agencies = await endpoint.api(`${state.apiFragment}/agenciesInQuery`)
+    const agencies = await api(`${state.apiFragment}/agenciesInQuery`)
     commit(tpaTypes.SET_AGENCIES, agencies)
   }
 }
