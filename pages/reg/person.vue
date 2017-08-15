@@ -77,18 +77,29 @@
                       i.fa.fa-check-circle.help.is-success(v-show="validators.success('vcode')")
                       i.fa.fa-warning.help.is-danger(v-show="validators.error('vcode')")
               .column.hfx-center
-                  figure.image.vcode-image(@click="refreshVcode")
+                  figure.image.vcode-image(@click="refreshVCode")
                     img(:src="api_url + '/share/vcode?t=' + vcode_ts")
             .field-tip
               span.hfx-center-v.help.is-danger(v-show="validators.error('vcode')")
                 i.icon.fa.fa-info.hfx-center-v
                 | {{$errors['vcode']}}
-            .field.field-bottom
-              .control.has-icons-left.has-icons-right.has-label-left
-                span.icon.is-small.is-left
-                  i.fa.fa-info
-                label.field-label.hfx-center-v 手机验证码
-                input.input(type="text", placeholder="请输入手机验证码")
+            .columns
+              .column.is-two-thirds
+                .field
+                  .control.has-icons-left.has-icons-right.has-label-left
+                    span.icon.is-small.is-left
+                      i.fa.fa-info
+                    label.field-label.hfx-center-v 手机验证码
+                    input.input(type="text", v-model="mcode", placeholder="请输入手机验证码", @input="$validate('mcode')", :class="{'is-success': validators.success('mcode'), 'is-danger': validators.error('mcode')}")
+                    span.icon.is-small.is-right
+                      i.fa.fa-check-circle.help.is-success(v-show="validators.success('mcode')")
+                      i.fa.fa-warning.help.is-danger(v-show="validators.error('mcode')")
+              .column.hfx-center
+                .button.is-primary(@click="getMCode", :disabled="!validators.phone.predicate(phone) || mcode_btn_disabled") {{mcode_btn_text}}
+            .field-tip
+              span.hfx-center-v.help.is-danger(v-show="validators.error('mcode')")
+                i.icon.fa.fa-info.hfx-center-v
+                | {{$errors['mcode']}}
             .field.field-bottom
               .control
                 label.i-agree.checkbox.hfx-center-v
@@ -97,7 +108,7 @@
                   nuxt-link.terms(to="/person-terms") 《{{siteName}}个人用户协议》
                   nuxt-link.terms(to="/statement") 《隐私政策》
             .btns.content
-              .login-btn.button.is-large.hfx-center(@click="doReg") 登录
+              .login-btn.button.is-large.hfx-center(@click="doReg") 注册
         .column
           .right-content
             p
@@ -122,16 +133,23 @@
         rcode: 'ABC',
         vcode: '',
         vcode_ts: new Date(),
+        mcode: '',
+        mcode_btn_text: '获取手机验证码',
+        mcode_btn_disabled: false,
+        mcode_btn_countdown_seconds: 60,
+        mcode_btn_countdown_id: null,
         validators: {
           $msgs: {
             code: `支持中文,字母,数字,"_","-"的组合 6-30个字符`,
             password: `建议使用字母,数字和符号两种及以上组合`,
             password2: `二次输入密码必须一致`,
             phone: `手机格式错误`,
-            vcode: `验证码错误`
+            vcode: `验证码错误`,
+            mcode: `手机验证码错误`
           },
           $valiatingWhen: {
-            vcode: v => v && v.length === 5
+            vcode: v => v && v.length === 5,
+            mcode: v => v && v.length === 6
           },
           code: {
             name: '账号',
@@ -155,33 +173,64 @@
           vcode: {
             name: '验证码',
             required: true,
-            predicate: this.verfiyCode
+            predicate: this.verifyVCode
+          },
+          mcode: {
+            name: '手机验证码',
+            required: true,
+            predicate: this.verifyMCode
           }
         }
       }
     },
     asyncData (ctx) {
-      console.log('----------------->>>', new Date())
       return { api_url: ctx.env.API_URL}
     },
     computed: {
       ...mapGetters(['siteName'])
     },
     methods: {
-      refreshVcode () {
+      refreshVCode () {
         this.vcode_ts = new Date()
+      },
+      async verifyVCode () {
+        if(this.vcode.length === 5) {
+          return await api.post(`/share/vcode/verify`, {vcode: this.vcode})
+        } else {
+          return false
+        }
+      },
+      async getMCode () {
+        this.mcode_btn_disabled = true
+        return await api.post(`/share/mcode`, {phone: this.phone, msg: `${this.phone}用户,您正在注册个人会员,验证码:{{mcode}}`, signature: this.siteName }).then((ret) => {
+          console.log('getMCode:', ret)
+          this.mcode_btn_text = `${this.mcode_btn_countdown_seconds}再次获取`
+          this.mcode_btn_countdown_id = setInterval(() => {
+            this.mcode_btn_countdown_seconds--
+            this.mcode_btn_text = `${this.mcode_btn_countdown_seconds}秒后再次获取`
+          }, 1* 1000)
+
+          setTimeout(() => {
+            clearInterval(this.mcode_btn_countdown_id)
+            this.mcode_btn_text = '获取手机验证码'
+            this.mcode_btn_disabled = false
+            this.mcode_btn_countdown_seconds = 60
+          }, this.mcode_btn_countdown_seconds * 1000)
+
+        }).catch(() => {
+          this.mcode_btn_disabled = false
+        })
+      },
+      async verifyMCode () {
+        if(this.mcode.length === 6) {
+          return await api.post(`/share/mcode/verify`, {mcode: this.mcode})
+        } else {
+          return false
+        }
       },
       doReg () {
         if(this.$validate()) {
           console.log('do reg...')
-        }
-      },
-      async verfiyCode () {
-//        console.log('verifyCode:', api)
-        if(this.vcode.length === 5) {
-          return await api.post(`/share/vcode`, {vcode: this.vcode})
-        } else {
-          return false
         }
       }
     }

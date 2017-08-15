@@ -2,6 +2,7 @@
  * Created by zppro on 17-7-27.
  */
 import Vue from 'vue'
+import debounce from 'lodash.debounce'
 import { isObject, isFunction } from '~/assets/js/utils'
 
 const $defaults = {
@@ -87,8 +88,9 @@ const VueValidator = {
         }
       }
     })
-    Vue.prototype.$validate = async function (field) {
+    Vue.prototype.$validate = debounce(async function (field) {
       if (!this.validators) return true
+      // console.log('field:', field, +new Date())
       if (field) {
         let value = this[field]
         let fieldErrors = await this::validateField(value, this.validators[field], this.validators.$msgs && this.validators.$msgs[field])
@@ -104,7 +106,7 @@ const VueValidator = {
         }
         return result
       }
-    }
+    }, 250)
   }
 }
 
