@@ -43,6 +43,12 @@
         agencies: `${tpaPrefix}agencies`
       })
     },
+    watch: {
+      '$route' (to, from) {
+        // 对路由变化作出响应...
+        console.log(to,from)
+      }
+    },
     methods: {
       async orderChanged (order) {
         this.isLoading = true

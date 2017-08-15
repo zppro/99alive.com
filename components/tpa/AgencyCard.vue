@@ -2,7 +2,7 @@
   nuxt-link.agency-card(:to="detailsUrl")
     .card.agency
       .card-image
-        figure.image.is-2by1
+        figure.image.is-16by9
           img(:src="agency.img")
       .card-content
         p.agency-name.title.is-6 {{agency.name}}
