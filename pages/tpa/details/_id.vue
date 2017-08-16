@@ -8,13 +8,13 @@
           a(aria-current="page") {{currentAgency.name}}
     .columns
       .column.is-half
-        slider.slider-in-details(:slider-items="sliders")
+        slider.slider-in-details(:slider-items="sliders", :show-item-count="3")
       .column
 </template>
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import { tpaPrefix } from '~/store/module-prefixs'
-  import Slider from '~/components/Slider'
+  import Slider from '~/components/Slider2'
   import Loading from '~/components/Loading'
   import Tabbar from '~/components/Tabbar'
   export default {
@@ -32,7 +32,7 @@
         return this.$route.params.id
       },
       sliders () {
-        return this.currentAgency.imgs.map(img => ({id: img.substr(img.lastIndexOf('/')) + '-' + (+new Date()), img}))
+        return this.currentAgency.imgs.map(img => ({id: img.substr(img.lastIndexOf('/')) + '-' + (+Math.random()), img}))
       },
       tabs () {
         return [
