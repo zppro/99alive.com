@@ -5,7 +5,7 @@
         quick-search-box(:current-city-name="currentCityName", :tpa-numbers="tpaNumbers", :search-dimensions="quickSearchDimensions")
       .column
         slider.slider-in-index(:slider-items="sliders", :can-scroll="true", :scroll-interval="5000")
-    tabbar.tabbar-in-index(:tab-items="tabs", @tab-data-fetch="fetchAgenciesInIndex")
+    tabbar.tabbar-in-index(:tab-items="tabs", @tab-item-active="fetchAgenciesInIndex")
       template(scope="props")
         .agency-list(v-if="props.data !== $keys.LAZY_LOAD")
           agency-card(v-for="agency in props.data", :key="agency.id", :agency="agency")

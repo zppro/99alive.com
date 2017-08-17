@@ -3,14 +3,14 @@ const dev = process.env.NODE_ENV !== 'production'
 
 const cdnLink = [
   {rel: 'stylesheet', href: 'https://cdn.bootcss.com/normalize/7.0.0/normalize.min.css'},
-  {rel: 'stylesheet', href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'},
-  {rel: 'stylesheet', href: 'https://cdn.bootcss.com/bulma/0.4.3/css/bulma.min.css'}
+  {rel: 'stylesheet', href: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'}
+  // {rel: 'stylesheet', href: 'https://cdn.bootcss.com/bulma/0.4.3/css/bulma.min.css'}
 ]
 const cdnScript = []
 
 const devUseCSS = [
   'normalize.css',
-  '~static/bulma.css',
+  // '~static/bulma.css',
   'font-awesome/css/font-awesome.css'
 ]
 
@@ -31,6 +31,7 @@ module.exports = {
   },
   css: [
     ...(dev ? devUseCSS : []),
+    '~static/bulma.css',
     { src: '~assets/stylus/main.styl', lang: 'stylus' }
   ],
   env: {
