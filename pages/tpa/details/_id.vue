@@ -8,7 +8,7 @@
           a(aria-current="page") {{currentAgency.name}}
     .columns
       .column.is-half
-        slider.slider-in-details(:slider-items="sliders", :show-item-count="3")
+        slider.slider-in-details(:slider-items="sliders", :show-item-count="5", :can-scroll="true", :scroll-interval="5000")
       .column
 </template>
 <script>

@@ -6,8 +6,8 @@
             img(:src="currentSlider.img")
         .slider-index.has-text-centered.hfx-center {{sliderIndex + 1}} / {{sliderCount}}
       .level.slider-bar
-        .level-left.slider-left-arrow
-          .level-item.has-text-centered.hfx-center
+        button.level-left.slider-arrow(:disabled="isLeftArrowDisabled", :class="{'slider-arrow-disabled': isLeftArrowDisabled}", @click="prevSlider")
+          .level-item
             .sx-arrow-l
         .level-item.level.slider-items
           .level-item(v-for="item in showItems", :class="positionClass(item.id)")
@@ -19,7 +19,7 @@
             .slider-item(v-show="!isActive(item.id)", @click="setActive(item.id)")
               figure.image.is-16by9
                 img(:src="item.img")
-        .level-right.slider-right-arrow
+        button.level-right.slider-arrow(:disabled="isRightArrowDisabled", :class="{'slider-arrow-disabled': isRightArrowDisabled}", @click="nextSlider")
           .level-item
             .sx-arrow-r
 </template>
@@ -34,8 +34,7 @@
     },
     computed: {
       showItems () {
-        console.log('sliderIndex:',this.sliderIndex, this.sliderIds)
-        let from = this.sliderIndex, to = from + this.showItemCount;
+        let from = Math.floor(this.sliderIndex / this.showItemCount ) * this.showItemCount, to = from + this.showItemCount
         if(to > this.sliderCount) {
           console.log('over-----------')
           to = this.sliderCount
@@ -43,6 +42,12 @@
         }
         console.log('showItems:', from, ',', to)
         return this.sliderItems.slice(from, to)
+      },
+      isLeftArrowDisabled () {
+        return this.sliderIndex <= 0
+      },
+      isRightArrowDisabled () {
+        return this.sliderIndex  >= this.sliderIds.length - 1
       },
       sliderIndex () {
         return this.sliderIds.indexOf(this.currentSlider.id)
@@ -97,6 +102,14 @@
         this.$nextTick(()=>{
           this.hugeShow = true
         })
+      },
+      prevSlider () {
+        console.log('prevSlider...')
+        this.setActive(this.sliderIds[this.sliderIndex - 1])
+      },
+      nextSlider () {
+        console.log('nextSlider...')
+        this.setActive(this.sliderIds[this.sliderIndex + 1])
       }
     }
   }
@@ -118,12 +131,27 @@
         background-color rgba(0, 0, 0, 0.3)
     .slider-bar
       width 100%
-      .level-item
+      .slider-arrow, .slider-arrow
         align-self:stretch
+        mg t, 0.6875
+        background-color white
+        cursor pointer
+        .sx-arrow-l
+          sx-arrow(l, $b=#ddd)
+        .sx-arrow-r
+          sx-arrow(r, $b=#ddd)
+        bd a, #ddd
+      .slider-arrow-disabled
+        background-color #EDEDED
+        cursor not-allowed
+        .sx-arrow-l
+          sx-arrow(l, $b=#ddd)
+        .sx-arrow-r
+          sx-arrow(r, $b=#ddd)
     .slider-items
       cursor pointer
       background-color white
-      .slider-left-arrow, .slider-right-arrow
+
       .slider-item
         margin-top: 11px
         width 100%
