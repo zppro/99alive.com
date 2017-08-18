@@ -36,9 +36,10 @@
           p
             label 床位区间:
             span {{currentAgency.bed_num_range}}
-          p
+          .p
             label 机构评级:
-            span {{currentAgency.star_rank}}
+            rate(:value="rateValue", :allow-half="true", :show-text="true")
+          p
           p
             label 　联系人:
             span {{currentAgency.link_man}}
@@ -55,11 +56,14 @@
   import { tpaPrefix } from '~/store/module-prefixs'
   import { scrollTop, offsetY } from '~/assets/js/utils'
   import Slider from '~/components/Slider2'
+  import Rate from '~/components/Rate'
   import Loading from '~/components/Loading'
   import Tabbar from '~/components/Tabbar'
+
   export default {
     data () {
       return {
+        rateValue: 2.5,
         tabOffSetY: 0,
         tabPosition: {},
         activedTabId: null,
@@ -132,6 +136,7 @@
     components: {
       Loading,
       Slider,
+      Rate,
       Tabbar
     }
   }
@@ -146,7 +151,7 @@
     margin 0 0 1rem 1rem
   .base-info
     padding .5rem 2rem
-    p
+    p,.p
       label
         font-size .875rem
         width 7.5rem
@@ -160,6 +165,8 @@
       background-color #ffad00
       color white
       cursor default
+    .rate
+      mg l, 1
   .tabbar-in-details
     mg t, .125
     width 100%
