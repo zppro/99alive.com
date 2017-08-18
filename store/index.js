@@ -29,7 +29,15 @@ export const state = () => ({
     ]
   },
   _cities: [],
-  _currentCity: {id: '010100', name: '杭州'}
+  _currentCity: {id: '010100', name: '杭州'},
+  version: '0.10.7',
+  ghVersion: '0.10.7',
+  visibleHeader: false,
+  visibleAffix: false,
+  apiURI: 'https://docs.api.nuxtjs.org',
+  _lang: 'en',
+  lang: {},
+  menu: {}
 })
 
 export const getters = {

@@ -173,6 +173,6 @@
     background-color white
     z-index 999
   .tab-content
-    height: 43rem
+    height: 13rem
     padding .625rem
 </style>
