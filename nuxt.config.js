@@ -32,6 +32,7 @@ module.exports = {
   css: [
     ...(dev ? devUseCSS : []),
     '~static/bulma.css',
+    '~static/bulma-badge.css',
     '~static/iconfont.css',
     { src: '~assets/stylus/main.styl', lang: 'stylus' }
   ],

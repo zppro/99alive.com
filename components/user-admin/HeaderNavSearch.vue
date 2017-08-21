@@ -1,6 +1,6 @@
 <template lang="pug">
   .search
-    input#algolia.search-input(type="text" name="search", placeholder="搜索")
+    input#algolia.search-input(type="text" name="search" disabled)
 </template>
 
 <script>

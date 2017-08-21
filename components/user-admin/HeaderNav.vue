@@ -11,7 +11,7 @@
 <script>
 import HeaderNavSearch from '~/components/user-admin/HeaderNavSearch.vue'
 import HeaderNavMenu from '~/components/user-admin/HeaderNavMenu.vue'
-import HeaderNavLang from '~/components/user-admin/HeaderNavLang.vue'
+import HeaderNavLang from '~/components/user-admin/HeaderNavSetting.vue'
 
 export default {
   computed: {

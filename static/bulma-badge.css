@@ -1,0 +1,75 @@
+.badge {
+    position: relative;
+    white-space: nowrap;
+}
+.badge.is-badge-white[data-badge]::after, .badge.is-badge-white:not([data-badge])::after {
+    background: white;
+    color: #0a0a0a;
+}
+.badge.is-badge-black[data-badge]::after, .badge.is-badge-black:not([data-badge])::after {
+    background: #0a0a0a;
+    color: white;
+}
+.badge.is-badge-light[data-badge]::after, .badge.is-badge-light:not([data-badge])::after {
+    background: whitesmoke;
+    color: #363636;
+}
+.badge.is-badge-dark[data-badge]::after, .badge.is-badge-dark:not([data-badge])::after {
+    background: #363636;
+    color: whitesmoke;
+}
+.badge.is-badge-primary[data-badge]::after, .badge.is-badge-primary:not([data-badge])::after {
+    background: #00d1b2;
+    color: findColorInvert(#00d1b2);
+}
+.badge.is-badge-info[data-badge]::after, .badge.is-badge-info:not([data-badge])::after {
+    background: #3273dc;
+    color: findColorInvert(#3273dc);
+}
+.badge.is-badge-success[data-badge]::after, .badge.is-badge-success:not([data-badge])::after {
+    background: #23d160;
+    color: findColorInvert(#23d160);
+}
+.badge.is-badge-warning[data-badge]::after, .badge.is-badge-warning:not([data-badge])::after {
+    background: #ffdd57;
+    color: findColorInvert(#ffdd57);
+}
+.badge.is-badge-danger[data-badge]::after, .badge.is-badge-danger:not([data-badge])::after {
+    background: #ff3860;
+    color: findColorInvert(#ff3860);
+}
+.badge[data-badge]::after, .badge:not([data-badge])::after {
+    background: #00d1b2;
+    background-clip: padding-box;
+    border-radius: 100%;
+    box-shadow: 0 0 0 0.2rem #fff;
+    color: #fff;
+    content: attr(data-badge);
+    display: inline-block;
+    -webkit-transform: translate(-0.2rem, -1rem);
+    -ms-transform: translate(-0.2rem, -1rem);
+    transform: translate(-0.2rem, -1rem);
+}
+.badge[data-badge]::after {
+    font-size: 0.75rem;
+    height: 1.8rem;
+    line-height: 1;
+    min-width: 1.8rem;
+    padding: 0.3rem 0.5rem;
+    text-align: center;
+    white-space: nowrap;
+}
+.badge:not([data-badge])::after, .badge[data-badge=""]::after {
+    height: 0.6rem;
+    min-width: 0.6rem;
+    padding: 0;
+    width: 0.6rem;
+}
+.badge.button::after {
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-transform: translate(50%, -50%);
+    -ms-transform: translate(50%, -50%);
+    transform: translate(50%, -50%);
+}
