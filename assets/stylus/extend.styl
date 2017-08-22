@@ -8,9 +8,12 @@ control_field-label()
   left 0
   text-indent .5em
   letter-spacing .2rem
-
 .modal
   z-index 9999
+.breadcrumb:not(:last-child)
+  @extend .mg-0
+.level:not(:last-child)
+  @extend .mg-0
 .columns
   @extend .mg-0
   @extend .pd-0
@@ -48,8 +51,8 @@ control_field-label()
   margin-top 2rem!important
 .field-tip
   height 2rem
+  .help
+    mg t, 0
   span
     font-size .75rem
     color #c5c5c5
-  span.error
-    color red

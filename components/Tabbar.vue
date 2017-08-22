@@ -19,18 +19,31 @@
       }
     },
     mounted () {
-      this.tabCount > 0 && this.setActive(this.tabItems[0].id)
+      if (this.activedTabId) {
+        this.setActive(this.activedTabId)
+      } else {
+        this.tabCount > 0 && this.setActive(this.tabItems[0].id)
+      }
     },
     props: {
-      tabItems: {type: Array, default: []}
+      tabItems: {type: Array, default: []},
+      activedTabId: {type: String},
+    },
+    watch: {
+      activedTabId (val, oldVal) {
+//        console.log('activedTabId:', val, oldVal)
+        if(oldVal && val != oldVal) {
+          this.setActive(val, true)
+        }
+      }
     },
     methods: {
       isActive (id) {
         return this.currentTab.id === id
       },
-      setActive (id) {
+      setActive (id, forbidEmitEvent) {
         this.currentTab = this.tabItems.find(o => o.id === id) || {}
-        this.currentTab.id && this.$emit('tab-data-fetch', this.currentTab)
+        !forbidEmitEvent && this.currentTab.id && this.$emit('tab-item-active', this.currentTab)
       }
     }
   }

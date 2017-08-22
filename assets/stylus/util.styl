@@ -57,3 +57,170 @@ bd(sides = t r b l a, c, n = 1, line = solid)
   justify-content center
 .inline-block
   display inline-block
+  
+/* 实心箭头 */
+sx-arrow(sides=t r b l, c = #000)
+  border-style dashed dashed solid dashed if sides == t
+  border-color transparent transparent c transparent if sides == t
+  border-style dashed dashed dashed solid if sides == r
+  border-color transparent transparent transparent c if sides == r
+  margin-left 10px if sides == r
+  border-style solid dashed dashed dashed if sides == b
+  border-color c transparent transparent transparent if sides == b
+  border-style dashed solid dashed dashed if sides == l
+  border-color transparent c transparent  transparent if sides == l
+  margin-right 10px if sides == l
+  border-width 10px
+  width 0
+  height 0
+.sx-arrow-up, .sx-arrow-t
+  sx-arrow(t)
+.sx-arrow-right, .sx-arrow-r
+  sx-arrow(r)
+.sx-arrow-down, .sx-arrow-b
+  sx-arrow(b)
+.sx-arrow-left, .sx-arrow-l
+  sx-arrow(l)
+  
+/* 空心箭头 */
+kx-arrow(sides=t r b l, c = #000)
+  display block
+  height 1rem
+  width 1rem
+  float left
+  position relative
+  border:1px solid #000
+  margin-right 5px
+  em,span
+    width 0
+    height 0
+    border-color transparent
+    position:absolute
+  em
+    if sides == t
+      border-width 8px  /*边框的高度*/
+      border-style solid dashed dashed dashed
+      border-top-color c /*边框的颜色*/
+      top 2px /*边框的厚度*/
+      left 0
+    if sides == r
+      border-width 8px  /*边框的高度*/
+      border-style dashed solid dashed dashed
+      border-right-color c /*边框的颜色*/
+      top 0
+      right 2px /*边框的厚度*/
+    if sides == b
+      border-width 8px  /*边框的高度*/
+      border-style dashed dashed solid dashed
+      border-bottom-color c /*边框的颜色*/
+      left 0
+      bottom 2px /*边框的厚度*/
+    if sides == l
+      border-width 8px  /*边框的高度*/
+      border-style dashed dashed dashed solid
+      border-left-color c /*边框的颜色*/
+      top 0
+      left 2px /*边框的厚度*/
+  span
+    if sides == t
+      border-width 8px  /*边框的高度*/
+      border-style dashed dashed dashed solid
+      top 0
+      left 0
+      border-left-color #fff/*用白色边框绝对定位盖住多余的部分*/
+    if sides == r
+      border-width 8px  /*边框的高度*/
+      border-style dashed solid dashed dashed
+      top 0
+      right 0
+      border-right-color #fff/*用白色边框绝对定位盖住多余的部分*/
+    if sides == b
+      border-width 8px  /*边框的高度*/
+      border-style dashed dashed solid dashed
+      left 0
+      bottom 0
+      border-bottom-color #fff/*用白色边框绝对定位盖住多余的部分*/
+    if sides == l
+      border-width 8px  /*边框的高度*/
+      border-style dashed solid dashed dashed
+      border-right-color c /*边框的颜色*/
+      top 0
+      right 2px /*边框的厚度*/
+
+i.kx-arrow-up, i.kx-arrow-t
+  kx-arrow(t, $tc=#999)
+i.kx-arrow-right, i.kx-arrow-r
+  kx-arrow(r, $rc=#999)
+i.kx-arrow-down, i.kx-arrow-b
+  kx-arrow(b, $bc=#999)
+i.kx-arrow-left, i.kx-arrow-l
+  kx-arrow(t, $lc=#999)
+//i.kx-arrow{display:block;height:16px;width:16px;float:left;position:relative;
+//  border:1px solid #000;margin-right:5px;
+//}
+//em,span{width:0;height:0;
+//  border-color:transparent;
+//  position:absolute;
+//}
+//
+//i.kx-arrow-up em{
+//  border-width:8px;  /*边框的高度*/
+//  border-style:solid dashed dashed dashed;
+//  border-top-color:#999; /*边框的颜色*/
+//  top:2px; /*边框的厚度*/
+//  left:0;
+//}
+//i.kx-arrow-up span{
+//  border-width:8px;  /*边框的高度*/
+//  border-style:solid dashed dashed dashed;
+//  top:0;
+//  left:0;
+//  border-top-color:#fff;/*用白色边框绝对定位盖住多余的部分*/
+//}
+//
+//
+//i.kx-arrow-left em{
+//  border-width:8px;  /*边框的高度*/
+//  border-style:dashed dashed dashed solid;
+//  border-left-color:#999; /*边框的颜色*/
+//  top:0;
+//  left:2px; /*边框的厚度*/
+//}
+//i.kx-arrow-left span{
+//  border-width:8px;  /*边框的高度*/
+//  border-style:dashed dashed dashed solid;
+//  top:0;
+//  left:0;
+//  border-left-color:#fff;/*用白色边框绝对定位盖住多余的部分*/
+//}
+//
+//i.kx-arrow-right em{
+//  border-width:8px;  /*边框的高度*/
+//  border-style:dashed solid dashed dashed;
+//  border-right-color:#999; /*边框的颜色*/
+//  top:0;
+//  right:2px; /*边框的厚度*/
+//}
+//i.kx-arrow-right span{
+//  border-width:8px;  /*边框的高度*/
+//  border-style:dashed solid dashed dashed;
+//  top:0;
+//  right:0;
+//  border-right-color:#fff;/*用白色边框绝对定位盖住多余的部分*/
+//}
+//
+//i.kx-arrow-down em{
+//  border-width:8px;  /*边框的高度*/
+//  border-style:dashed dashed solid dashed;
+//  border-bottom-color:#999; /*边框的颜色*/
+//  left:0;
+//  bottom:2px; /*边框的厚度*/
+//
+//}
+//i.kx-arrow-down span{
+//  border-width:8px;  /*边框的高度*/
+//  border-style:dashed dashed solid dashed;
+//  left:0;
+//  bottom:0;
+//  border-bottom-color:#fff;/*用白色边框绝对定位盖住多余的部分*/
+//}

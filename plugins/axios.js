@@ -2,20 +2,32 @@
  * Created by zppro on 17-7-31.
  */
 import axios from 'axios'
-
-const api = axios.create({
+import qs from 'qs'
+export const api = axios.create({
   baseURL: process.env.API_URL,
-  timeout: 20000
+  timeout: 20000,
+  withCredentials: true
 })
 
-export const endpoint = {
-  api
-}
+export const $CORS_METHODS = ['post', 'put']
 
 export default ({ app, store, isServer, isClient }) => {
   // app.router is router instance
   // axios.defaults.baseURL = process.env.API_URL
   // console.log('app:', isServer, isClient, process.browser, process.server)
+
+  api.interceptors.request.use(config => {
+    console.log(`CORS:${config.method}->${config.url}`)
+    if ($CORS_METHODS.includes(config.method)) {
+
+      config.data = qs.stringify(config.data)
+      config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    }
+    return config
+  }, error => {
+    console.error(error)
+    return Promise.reject(error)
+  })
 
   api.interceptors.response.use(res => {
     if (res.config) {

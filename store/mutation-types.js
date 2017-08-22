@@ -15,4 +15,9 @@ export const tpaTypes = {
   SET_TABS: 'SET_TABS',
   SET_TAB_AGENCIES: 'SET_TAB_AGENCIES',
   SET_AGENCIES: 'SET_AGENCIES',
+  SET_CURRENT_AGENCY: 'SET_CURRENT_AGENCY'
+}
+
+export const uaTypes = {
+
 }

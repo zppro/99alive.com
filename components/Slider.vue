@@ -2,17 +2,17 @@
   .slider-container
       .huge
         transition(name="fade")
-          figure.image.is-2by1(v-if="hugeShow")
+          figure.image.is-16by9(v-if="hugeShow")
             img(:src="currentSlider.img")
       .slider-items.level
         .level-item(v-for="item in sliderItems", :class="positionClass(item.id)")
           .slider-item.popover-up(v-show="isActive(item.id)")
             .arrow
             .popover-content
-              figure.image.is-2by1
+              figure.image.is-16by9
                 img(:src="item.img")
           .slider-item(v-show="!isActive(item.id)", @click="setActive(item.id)")
-            figure.image.is-2by1
+            figure.image.is-16by9
               img(:src="item.img")
 
 </template>
