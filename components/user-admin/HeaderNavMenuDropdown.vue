@@ -154,4 +154,5 @@ export default {
           justify-content center
           &:hover
             color $text-active-color
+            transform scale(1.1)
 </style>

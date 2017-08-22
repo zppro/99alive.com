@@ -1,35 +1,38 @@
 <template lang="pug">
   .setting
     .setting-current(@click="show = !show")
-      avatar.avatar(:username="userName")
-      span.badge(data-badge="")
+      avatar.avatar(:username="user.name")
+      <!--span.badge(data-badge="")-->
     ul.setting-list(:class="{ 'setting-list-visible': show }")
       li.setting-list-item(v-for="setting in settings")
         a.setting-list-item-link(:href="setting.url") {{setting.name}}
-        span.badge(v-if="setting.id === 'notification' && hasNewMsg", data-badge="")
 </template>
 
 <script>
-import Avatar from 'vue-avatar/src/Avatar.vue'
-export default {
-  data () {
-    return {show: false, userName: 'zppro', hasNewMsg: true}
-  },
-  computed: {
-    settings () {
-      return [
-        {id: 'notification', name: '通知消息', url: 'https://zh.nuxtjs.org'},
-        {name: '实名认证', url: 'https://ja.nuxtjs.org'},
-        {name: '修改密码', url: 'https://nuxtjs.org'},
-        {name: '修改头像', url: 'https://ko.nuxtjs.org'},
-        {name: '退出', url: 'https://ru.nuxtjs.org'}
-      ]
+  import { mapGetters } from 'vuex'
+  import { uaPrefix } from '~/store/module-prefixs'
+  import Avatar from 'vue-avatar/src/Avatar.vue'
+  export default {
+    data () {
+      return {show: false}
+    },
+    computed: {
+      settings () {
+        return [
+          {name: '实名认证', url: 'https://ja.nuxtjs.org'},
+          {name: '修改密码', url: 'https://nuxtjs.org'},
+          {name: '修改头像', url: 'https://ko.nuxtjs.org'},
+          {name: '退出', url: 'https://ru.nuxtjs.org'}
+        ]
+      },
+      ...mapGetters({
+        user: `${uaPrefix}/user`
+      })
+    },
+    components: {
+      Avatar
     }
-  },
-  components: {
-    Avatar
   }
-}
 </script>
 
 <style lang="stylus" scoped>
@@ -92,4 +95,5 @@ export default {
           justify-content center
           &:hover
             color $text-active-color
+            transform scale(1.1)
 </style>

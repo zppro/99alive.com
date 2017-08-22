@@ -9,6 +9,7 @@ export const state = () => ({
   _$keys: {},
   _site: {
     name: '99为老网',
+    domain: '99alive.com',
     _channels: [
       {name: '养老机构', path: '/tpa'},
       {name: '为老服务', path: '/srv'},
@@ -55,6 +56,9 @@ export const getters = {
   },
   siteName (state) {
     return state._site.name
+  },
+  siteDomain (state) {
+    return state._site.domain
   },
   currentChannelId (state) {
     return state.route.path.split('/')[1]
@@ -104,7 +108,7 @@ export const actions = {
       ]).then(axios.spread(($keys, cities, ...searchDimensions) => {
         commit(indexTypes.SET_$KEYS, $keys)
         commit(indexTypes.SET_CITIES, cities)
-        commit(tpaPrefix + tpaTypes.SET_SEARCH_DIMENSIONS, searchDimensions)
+        commit(tpaPrefix + '/'+ tpaTypes.SET_SEARCH_DIMENSIONS, searchDimensions)
       }))
       // const cities = await app.api(`/share/district/cities/,_id name first_letter hot`)
       // console.log('ret:', cities, bedNumSearchDimension, chargeSearchDimentsion, ratingSearchDimension)

@@ -1,11 +1,10 @@
 <template lang="pug">
   ul.menu
     li.menu-item
-      nuxt-link.menu-item-link(to="/guide") 教程
+      nuxt-link.menu-item-link(to="/main") 首页
     li.menu-item
-      nuxt-link.menu-item-link(to="/api") API
-    li.menu-item
-      nuxt-link.menu-item-link(to="/examples") 示例
+      nuxt-link.menu-item-link(to="/msg") 消息
+        span.badge.menu-item-link-badge(v-if="hasNewMsg", data-badge="12")
     li.menu-item
       nuxt-link.menu-item-link(to="/faq") 常见问题
     li.menu-item
@@ -13,13 +12,21 @@
 </template>
 
 <script>
-import HeaderNavMenuDropdown from '~/components/user-admin/HeaderNavMenuDropdown.vue'
+  import Avatar from 'vue-avatar/src/Avatar.vue'
+  import { uaPrefix } from '~/store/module-prefixs'
+  import HeaderNavMenuDropdown from '~/components/user-admin/HeaderNavMenuDropdown.vue'
 
-export default {
-  components: {
-    HeaderNavMenuDropdown
+  export default {
+    computed: {
+      hasNewMsg () {
+        return this.$store.state[uaPrefix].hasNewMsg
+      }
+    },
+    components: {
+      Avatar,
+      HeaderNavMenuDropdown
+    }
   }
-}
 </script>
 
 <style lang="stylus" scoped>
@@ -58,8 +65,18 @@ export default {
         letter-spacing 0.5px
         &:hover
           color $link-active-color
+          transform scale(1.1)
         @media (min-width: 991px)
           height 4.9375rem
+        &-badge
+          &[data-badge]::after, &:not([data-badge])::after
+            background #00d1b2
+            background-clip padding-box
+            border-radius 100%
+            box-shadow 0 0 0 0.2rem #fff
+            color #fff
+            content attr(data-badge)
+            display inline-block
       .nuxt-link-active, .nuxt-link-active:hover
         color $link-active-color
 </style>

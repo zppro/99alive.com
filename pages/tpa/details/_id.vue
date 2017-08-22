@@ -72,13 +72,13 @@
     },
     async fetch ({store, params}) {
       await Promise.all([
-        store.dispatch(`${tpaPrefix}fetchAgencyInDetails`, params.id)
+        store.dispatch(`${tpaPrefix}/fetchAgencyInDetails`, params.id)
       ])
     },
     computed: {
       ...mapGetters({
         $keys: '$keys',
-        currentAgency: `${tpaPrefix}currentAgency`
+        currentAgency: `${tpaPrefix}/currentAgency`
       }),
       sliders () {
         return this.currentAgency.imgs.map(img => ({id: img.substr(img.lastIndexOf('/')) + '-' + (+Math.random()), img}))
@@ -173,6 +173,6 @@
     background-color white
     z-index 999
   .tab-content
-    height: 13rem
+    height: 43rem
     padding .625rem
 </style>

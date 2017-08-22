@@ -42,7 +42,7 @@
     background: #00d1b2;
     background-clip: padding-box;
     border-radius: 100%;
-    box-shadow: 0 0 0 0.2rem #fff;
+    /*box-shadow: 0 0 0 0.2rem #fff;*/
     color: #fff;
     content: attr(data-badge);
     display: inline-block;

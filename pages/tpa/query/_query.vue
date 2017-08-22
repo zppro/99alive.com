@@ -37,10 +37,10 @@
         return this.$route.params.query
       },
       ...mapGetters({
-        searchDimensions: `${tpaPrefix}searchDimensions`,
-        queryMultiDimensionIds: `${tpaPrefix}queryMultiDimensionIds`,
-        queryOrders: `${tpaPrefix}queryOrders`,
-        agencies: `${tpaPrefix}agencies`
+        searchDimensions: `${tpaPrefix}/searchDimensions`,
+        queryMultiDimensionIds: `${tpaPrefix}/queryMultiDimensionIds`,
+        queryOrders: `${tpaPrefix}/queryOrders`,
+        agencies: `${tpaPrefix}/agencies`
       })
     },
     watch: {
@@ -56,7 +56,7 @@
         this.isLoading = false
       },
       ...mapActions({
-        fetchAgenciesInQuery: `${tpaPrefix}fetchAgenciesInQuery`
+        fetchAgenciesInQuery: `${tpaPrefix}/fetchAgenciesInQuery`
       })
     },
     components: {

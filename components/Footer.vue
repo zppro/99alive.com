@@ -3,7 +3,7 @@
     .footer-main.level.mg-center
       .level-item(v-for="item in commonNavItems")
         nuxt-link(:to="item.path") {{item.name}}
-    .content.mg-center.has-text-centered &copyright 2017 99alive.com 版权所有
+    .content.mg-center.has-text-centered &copyright 2017 {{siteName}} 版权所有
 </template>
 <script>
   import { mapGetters } from 'vuex'
@@ -11,7 +11,7 @@
   import HeaderChannel from '~/components/HeaderChannel.vue'
   export default {
     computed: {
-      ...mapGetters(['commonNavItems'])
+      ...mapGetters(['commonNavItems', 'siteName'])
     },
     components: {
       HeaderCity,

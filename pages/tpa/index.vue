@@ -22,24 +22,24 @@
   export default {
     async fetch ({store}) {
       await Promise.all([
-        store.dispatch(`${tpaPrefix}fetchStats`),
-        store.dispatch(`${tpaPrefix}fetchSlidersInIndex`),
-        store.dispatch(`${tpaPrefix}fetchTabsInIndex`)
+        store.dispatch(`${tpaPrefix}/fetchStats`),
+        store.dispatch(`${tpaPrefix}/fetchSlidersInIndex`),
+        store.dispatch(`${tpaPrefix}/fetchTabsInIndex`)
       ])
     },
     computed: {
       ...mapGetters({
         $keys: '$keys',
         currentCityName: 'currentCityName',
-        tpaNumbers: `${tpaPrefix}numbers`,
-        quickSearchDimensions: `${tpaPrefix}quickSearchDimensions`,
-        sliders: `${tpaPrefix}sliders`,
-        tabs: `${tpaPrefix}tabs`
+        tpaNumbers: `${tpaPrefix}/numbers`,
+        quickSearchDimensions: `${tpaPrefix}/quickSearchDimensions`,
+        sliders: `${tpaPrefix}/sliders`,
+        tabs: `${tpaPrefix}/tabs`
       })
     },
     methods: {
       ...mapActions({
-        fetchAgenciesInIndex: `${tpaPrefix}fetchAgenciesInIndex`
+        fetchAgenciesInIndex: `${tpaPrefix}/fetchAgenciesInIndex`
       })
     },
     components: {
