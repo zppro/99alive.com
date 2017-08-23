@@ -101,11 +101,13 @@ export const actions = {
   async nuxtServerInit ({state, getters, commit}, {app, req, res}) {
     try {
       console.log('--------------------nuxtServerInit:')
-      await axios.all([
+      let urls = [
         app.api(`/share/keys.json`),
         app.api(`/share/district/cities/,_id name first_letter hot`),
         ...state.tpa._searchDimensionIds.map(o => app.api(`/share/dictionary/${o}/pair`))
-      ]).then(axios.spread(($keys, cities, ...searchDimensions) => {
+      ]
+      console.log('urls: ', urls)
+      await axios.all(urls).then(axios.spread(($keys, cities, ...searchDimensions) => {
         commit(indexTypes.SET_$KEYS, $keys)
         commit(indexTypes.SET_CITIES, cities)
         commit(tpaPrefix + '/'+ tpaTypes.SET_SEARCH_DIMENSIONS, searchDimensions)

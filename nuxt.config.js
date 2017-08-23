@@ -15,6 +15,7 @@ const devUseCSS = [
 ]
 
 module.exports = {
+  // mode: 'spa',
   head: {
     meta: [
       { charset: 'utf-8' },
@@ -37,10 +38,11 @@ module.exports = {
     { src: '~assets/stylus/main.styl', lang: 'stylus' }
   ],
   env: {
-    API_URL: process.env.API_URL || 'http://192.168.10.194:3003/apis'
+    API_BASE_URL: process.env.API_BASE_URL || 'http://192.168.10.194:3003/apis/'
   },
   plugins: ['~plugins/vue-validator.js', '~plugins/vuex-router-sync.js', '~plugins/axios.js'],
   build: {
+    // dll: true,
     vendor: ['axios', 'babel-polyfill'],
     babel: {
       plugins: ['transform-function-bind']

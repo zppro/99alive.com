@@ -11,6 +11,7 @@
   import Footbar from '~/components/user-admin/Footer.vue'
   import { uaPrefix } from '~/store/module-prefixs'
   export default {
+    middleware: 'uaAuth',
     watch: {
       $route: 'setStore'
     },

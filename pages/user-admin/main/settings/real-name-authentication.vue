@@ -1,5 +1,5 @@
 <template lang="pug">
-  div user-info
+  div real-name-authentication
 </template>
 <script>
   export default {

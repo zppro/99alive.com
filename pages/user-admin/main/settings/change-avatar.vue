@@ -1,5 +1,5 @@
 <template lang="pug">
-  div user-info
+  div change-avatar
 </template>
 <script>
   export default {

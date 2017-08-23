@@ -1,11 +1,12 @@
 <template lang="pug">
-  div user-info
+  div
 </template>
 <script>
   export default {
-    layout: 'user-admin'
+    asyncData (context) {
+      context.redirect('user-admin/main')
+    }
   }
 </script>
 <style lang="stylus" scoped>
-  @import '~assets/stylus/user-admin/index.styl'
 </style>

@@ -5,7 +5,7 @@
       <!--span.badge(data-badge="")-->
     ul.setting-list(:class="{ 'setting-list-visible': show }")
       li.setting-list-item(v-for="setting in settings")
-        a.setting-list-item-link(:href="setting.url") {{setting.name}}
+        nuxt-link.setting-list-item-link(:to="setting.to") {{setting.name}}
 </template>
 
 <script>
@@ -18,15 +18,11 @@
     },
     computed: {
       settings () {
-        return [
-          {name: '实名认证', url: 'https://ja.nuxtjs.org'},
-          {name: '修改密码', url: 'https://nuxtjs.org'},
-          {name: '修改头像', url: 'https://ko.nuxtjs.org'},
-          {name: '退出', url: 'https://ru.nuxtjs.org'}
-        ]
+        return [...this.quickSettings, {to: '/user-admin/sign-out', name: '退出'}]
       },
       ...mapGetters({
-        user: `${uaPrefix}/user`
+        user: `${uaPrefix}/user`,
+        quickSettings: `${uaPrefix}/quickSettings`
       })
     },
     components: {

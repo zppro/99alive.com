@@ -36,6 +36,8 @@
             nuxt-link.to-register(to="/reg/person") 立即注册
 </template>
 <script>
+  import { mapActions } from 'vuex'
+  import { uaPrefix } from '~/store/module-prefixs'
   export default {
     layout: 'sign',
     data () {
@@ -62,11 +64,20 @@
       checkLogin (){
 
       },
-      doLogin () {
+      async doLogin () {
         if(this.$validate()) {
-          console.log('do login...')
+          let success = await this.login({username: this.code, pass: this.password})
+          if(success) {
+            console.log('success login')
+            this.$router.push('/user-admin/main')
+          } else {
+            console.log('error login')
+          }
         }
-      }
+      },
+      ...mapActions({
+        login: `${uaPrefix}/login`
+      })
     }
   }
 </script>

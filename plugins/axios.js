@@ -4,7 +4,7 @@
 import axios from 'axios'
 import qs from 'qs'
 export const api = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: process.env.API_BASE_URL,
   timeout: 20000,
   withCredentials: true
 })
@@ -46,11 +46,13 @@ export default ({ app, store, isServer, isClient }) => {
     }
     return res
   }, error => {
-    console.error(error)
+    console.error('>>>>>', error)
     if (error.response.status >= 500) {
       // 服务器内部错误
     } else if (error.response.status === 401) {
       // 没有认证,跳转到login
+    } else {
+      console.log('err res status:', error.response.status)
     }
     return Promise.reject(error)
   })

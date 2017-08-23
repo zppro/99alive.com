@@ -1,5 +1,5 @@
 <template lang="pug">
-  div user-info
+  nuxt-child
 </template>
 <script>
   export default {
@@ -7,5 +7,4 @@
   }
 </script>
 <style lang="stylus" scoped>
-  @import '~assets/stylus/user-admin/index.styl'
 </style>

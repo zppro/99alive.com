@@ -1,7 +1,7 @@
 <template lang="pug">
   ul.menu
     li.menu-item
-      nuxt-link.menu-item-link(to="/main") 首页
+      nuxt-link.menu-item-link(to="/user-admin/main") 首页
     li.menu-item
       nuxt-link.menu-item-link(to="/msg") 消息
         span.badge.menu-item-link-badge(v-if="hasNewMsg", data-badge="12")

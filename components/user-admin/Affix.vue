@@ -59,7 +59,7 @@
         return this.$route.path.slice(-1) === '/' ? this.$route.path.slice(0, -1) : this.$route.path
       },
       menu () {
-        return '/user-admin/' + this.category
+        return this.category
       },
       contents () {
         let c = []

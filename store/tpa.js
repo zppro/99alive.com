@@ -6,7 +6,7 @@ import { api } from '~/plugins/axios'
 import { tpaTypes } from './mutation-types'
 
 export const state = () => ({
-  apiFragment: '/apps/99alive/tpa',
+  apiFragment: 'apps/99alive/tpa',
   _columns: [
     {name: '首页', path: '/tpa'},
     {name: '查找', path: '/tpa/query'},
