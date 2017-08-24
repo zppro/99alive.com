@@ -20,5 +20,7 @@ export const tpaTypes = {
 
 export const uaTypes = {
   SET_USER: 'SET_USER',
-  SET_AUTH_RETURN_URL: 'SET_AUTH_RETURN_URL'
+  SET_TOKEN: 'SET_TOKEN',
+  SET_AUTH_RETURN_URL: 'SET_AUTH_RETURN_URL',
+  CLEAR_USER_TOKEN: 'CLEAR_USER_TOKEN'
 }

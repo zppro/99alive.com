@@ -2,7 +2,8 @@
  * Created by zppro on 17-7-27.
  */
 import axios from 'axios'
-import { tpaPrefix } from './module-prefixs'
+import { parseCookie } from '~/assets/js/utils'
+import { tpaPrefix, uaPrefix } from './module-prefixs'
 import { indexTypes, tpaTypes } from './mutation-types'
 
 export const state = () => ({
@@ -98,7 +99,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async nuxtServerInit ({state, getters, commit}, {app, req, res}) {
+  async nuxtServerInit ({state, commit, dispatch}, {app, req, res}) {
     try {
       console.log('--------------------nuxtServerInit:')
       let urls = [
@@ -106,16 +107,20 @@ export const actions = {
         app.api(`/share/district/cities/,_id name first_letter hot`),
         ...state.tpa._searchDimensionIds.map(o => app.api(`/share/dictionary/${o}/pair`))
       ]
-      console.log('urls: ', urls)
+      // console.log('urls: ', urls)
       await axios.all(urls).then(axios.spread(($keys, cities, ...searchDimensions) => {
         commit(indexTypes.SET_$KEYS, $keys)
         commit(indexTypes.SET_CITIES, cities)
         commit(tpaPrefix + '/'+ tpaTypes.SET_SEARCH_DIMENSIONS, searchDimensions)
       }))
-      // const cities = await app.api(`/share/district/cities/,_id name first_letter hot`)
-      // console.log('ret:', cities, bedNumSearchDimension, chargeSearchDimentsion, ratingSearchDimension)
 
-      // console.log('groupedCities:', getters['groupedCities'])
+      let token  = parseCookie(req.headers.cookie, 'token')
+      let signin_ts  = parseCookie(req.headers.cookie, 'signin_ts')
+      console.log('token:', token, signin_ts)
+      if (token && signin_ts) {
+        await dispatch(`${uaPrefix}/token`, {token, signin_ts})
+      }
+
     } catch (e) {
       // console.error('Error on [nuxtServerInit] action.', e) // eslint-disable-line no-console
     }

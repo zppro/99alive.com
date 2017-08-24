@@ -42,3 +42,16 @@ export const isScrollBarY = () => {
   console.log('isScrollBarY:', bodyWidth(), document.documentElement.offsetWidth)
   return bodyWidth() != document.documentElement.offsetWidth
 }
+
+export const parseCookie = (cookie, key) => {
+  let cookies = cookie.split(';'), arr, val;
+  for (var i = 0, len = cookies.length; i < len; i++) {
+    arr = cookies[i].trim().split("=");
+    console.log(arr)
+    if (arr[0] === key) {
+      val = arr[1]
+      break
+    }
+  }
+  return val
+}

@@ -2,12 +2,25 @@
   .topbar.w100
     .mg-center.container.columns.hfx-center-v
       .column
-      .column.is-three-quarters.hfx-center-v.no-login
+      .column.is-three-quarters.hfx-center-v.no-login(v-if="!isAuth")
         | 欢迎来到99为老网 请
         nuxt-link.to-login(to="/login") 登录
         nuxt-link.to-register(to="/reg/person") 免费注册
+      .column.is-three-quarters.hfx-center-v.logined(v-if="isAuth")
+        | 欢迎您,{{user.name}}
+        nuxt-link.to-login(to="/user-admin") 用户中心
 </template>
 <script>
+  import { mapGetters } from 'vuex'
+  import { uaPrefix } from '~/store/module-prefixs'
+  export default {
+    computed: {
+      ...mapGetters({
+        isAuth:`${uaPrefix}/isAuth`,
+        user: `${uaPrefix}/user`
+      })
+    }
+  }
 </script>
 <style lang="stylus" scoped>
   @import '~assets/stylus/util.styl'
@@ -18,7 +31,7 @@
     height 1.875rem
     z-index 999
     background-color #f1f1f1
-    .no-login
+    .no-login, .logined
       color #999
       justify-content flex-end
       .to-login

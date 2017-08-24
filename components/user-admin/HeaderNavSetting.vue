@@ -5,28 +5,41 @@
       <!--span.badge(data-badge="")-->
     ul.setting-list(:class="{ 'setting-list-visible': show }")
       li.setting-list-item(v-for="setting in settings")
-        nuxt-link.setting-list-item-link(:to="setting.to") {{setting.name}}
+        a.setting-list-item-link(v-if="setting.click", @click="setting.click") {{setting.name}}
+        nuxt-link.setting-list-item-link(v-else :to="setting.to") {{setting.name}}
+    confirm(:show="confirmLogout", @confirm-close="confirmClose")
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   import { uaPrefix } from '~/store/module-prefixs'
   import Avatar from 'vue-avatar/src/Avatar.vue'
+  import Confirm from '~/components/Confirm.vue'
   export default {
     data () {
-      return {show: false}
+      return {show: false, confirmLogout: false}
     },
     computed: {
       settings () {
-        return [...this.quickSettings, {to: '/user-admin/sign-out', name: '退出'}]
+        return [...this.quickSettings, {to: '#', name: '退出', click: () => { this.confirmLogout = true, console.log(this.confirmLogout) }}]
       },
       ...mapGetters({
         user: `${uaPrefix}/user`,
         quickSettings: `${uaPrefix}/quickSettings`
       })
     },
+    methods: {
+      async confirmClose (confirmed) {
+        await this.logout()
+        this.$router.replace('/login')
+      },
+      ...mapActions({
+        logout: `${uaPrefix}/logout`,
+      })
+    },
     components: {
-      Avatar
+      Avatar,
+      Confirm
     }
   }
 </script>

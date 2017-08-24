@@ -12,6 +12,9 @@
   import { uaPrefix } from '~/store/module-prefixs'
   export default {
     middleware: 'uaAuth',
+    fetch () {
+//      store.dispatch(`${uaPrefix}/token`, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMyIsIm5hbWUiOiIxMjMiLCJpYXQiOjE1MDM1NTE5NTB9.ZKkD78Y_cFaOK_tlWhQwcM7FCzV5to5FrfxqYMGfunM')
+    },
     watch: {
       $route: 'setStore'
     },

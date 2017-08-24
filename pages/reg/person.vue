@@ -78,7 +78,7 @@
                       i.fa.fa-warning.help.is-danger(v-show="validators.error('vcode')")
               .column.hfx-center
                   figure.image.vcode-image(@click="refreshVCode")
-                    img(:src="api_url + '/share/vcode?t=' + vcode_ts")
+                    img(:src="api_base_url + 'share/vcode?t=' + vcode_ts")
             .field-tip
               span.hfx-center-v.help.is-danger(v-show="validators.error('vcode')")
                 i.icon.fa.fa-info.hfx-center-v
@@ -184,7 +184,7 @@
       }
     },
     asyncData (ctx) {
-      return { api_url: ctx.env.API_URL}
+      return { api_base_url: ctx.env.API_BASE_URL}
     },
     computed: {
       ...mapGetters(['siteName'])
