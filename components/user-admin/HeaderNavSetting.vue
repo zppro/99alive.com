@@ -1,5 +1,5 @@
 <template lang="pug">
-  .setting
+  .setting(:class="{'setting-can-hover': settingCanHover}")
     .setting-current(@click="show = !show")
       avatar.avatar(:username="user.name")
       <!--span.badge(data-badge="")-->
@@ -7,7 +7,7 @@
       li.setting-list-item(v-for="setting in settings")
         a.setting-list-item-link(v-if="setting.click", @click="setting.click") {{setting.name}}
         nuxt-link.setting-list-item-link(v-else :to="setting.to") {{setting.name}}
-    confirm(:show="confirmLogout", @confirm-close="confirmClose")
+    confirm(:show="confirmShow", text="确定要退出?", @confirm-close="confirmClose")
 </template>
 
 <script>
@@ -17,11 +17,11 @@
   import Confirm from '~/components/Confirm.vue'
   export default {
     data () {
-      return {show: false, confirmLogout: false}
+      return {settingCanHover: true, show: false, confirmShow: false}
     },
     computed: {
       settings () {
-        return [...this.quickSettings, {to: '#', name: '退出', click: () => { this.confirmLogout = true, console.log(this.confirmLogout) }}]
+        return [...this.quickSettings, {to: '#', name: '退出', click: () => { this.confirmShow = true; this.settingCanHover = false }}]
       },
       ...mapGetters({
         user: `${uaPrefix}/user`,
@@ -30,8 +30,12 @@
     },
     methods: {
       async confirmClose (confirmed) {
-        await this.logout()
-        this.$router.replace('/login')
+        this.confirmShow = false
+        this.settingCanHover = true
+        if (confirmed) {
+          await this.logout()
+          this.$router.replace('/login')
+        }
       },
       ...mapActions({
         logout: `${uaPrefix}/logout`,
@@ -54,7 +58,7 @@
     display flex
     flex-direction column
     @media (min-width: 991px)
-      &:hover
+      &-can-hover:hover
         .setting-list
           display flex
     &-current
