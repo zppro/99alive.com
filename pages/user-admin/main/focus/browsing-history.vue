@@ -1,12 +1,11 @@
 <template lang="pug">
-  div 概览
+  div 浏览历史
 </template>
 <script>
   export default {
-    asyncData (context) {
-      context.redirect('settings/user-info')
-    }
+    layout: 'user-admin'
   }
 </script>
 <style lang="stylus" scoped>
+  @import '~assets/stylus/user-admin/index.styl'
 </style>

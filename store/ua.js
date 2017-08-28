@@ -26,9 +26,27 @@ export const state = () => ({
     // 数据格式查看 https://docs.api.nuxtjs.org/menu/en
     main: [
       {
-        title: '合同中心',
+        title: '订单与合同',
         links: [
-          {to: '', name: '合同中心'}
+          {to: '/order-and-contract/my-application', name: '我的申请'},
+          {to: '/order-and-contract/my-order', name: '我的订单'},
+          {to: '/order-and-contract/my-contract', name: '我的合同'},
+          {to: '/order-and-contract/my-evaluation', name: '我的评价'}
+        ]
+      },
+      {
+        title: '关注中心',
+        links: [
+          {to: '/focus/tpa', name: '养老机构'},
+          {to: '/focus/sfto', name: '为老服务'},
+          {to: '/focus/care-man', name: '照护人员'},
+          {to: '/focus/browsing-history', name: '浏览历史'}
+        ]
+      },
+      {
+        title: '资产中心',
+        links: [
+          {to: '/asset/coupon ', name: '优惠券'}
         ]
       },
       {
