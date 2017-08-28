@@ -116,10 +116,10 @@ export const actions = {
     commit(uaTypes.CLEAR_USER_TOKEN)
     return true
   },
-  async token ({state, commit}, {token, signin_ts}) {
+  async signinByToken ({state, commit}, {token, signin_ts}) {
     // const {user, token} = await api.post(`/share/auth/token`, {token})
     // const user = await api.post(`/${state.apiFragment}/signin`, {path: state.apiFragment, username, pass})
-    let user = await api(`/share/auth/token/${token},${signin_ts}`)
+    let user = await api(`/share/auth/signinByToken/${token},${signin_ts}`)
 
     if (user) {
       commit(uaTypes.SET_USER, user)

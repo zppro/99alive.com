@@ -18,9 +18,12 @@ export default ({ app, store, isServer, isClient }) => {
 
   api.interceptors.request.use(config => {
     console.log(`CORS:${config.method}->${config.url}`)
+    let {_apiToken, _apiTokenTimestamp} = store.state
+    config.headers.common['X-Api-Token'] =  _apiToken
+    // config.headers.common['X-Custom-TS'] =  _apiTokenTimestamp
     if ($CORS_METHODS.includes(config.method)) {
-
       config.data = qs.stringify(config.data)
+      console.log(`data:${config.data}`)
       config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
     return config

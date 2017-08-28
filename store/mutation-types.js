@@ -3,6 +3,8 @@
  */
 
 export const indexTypes = {
+  SET_API_TOKEN: 'SET_API_TOKEN',
+  SET_API_TOKEN_TS: 'SET_API_TOKEN_TS',
   SET_$KEYS: 'SET_$KEYS',
   SET_CITY: 'SET_CITY',
   SET_CITIES: 'SET_CITIES'

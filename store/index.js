@@ -32,14 +32,8 @@ export const state = () => ({
   },
   _cities: [],
   _currentCity: {id: '010100', name: '杭州'},
-  version: '0.10.7',
-  ghVersion: '0.10.7',
-  visibleHeader: false,
-  visibleAffix: false,
-  apiURI: 'https://docs.api.nuxtjs.org',
-  _lang: 'en',
-  lang: {},
-  menu: {}
+  _apiToken: false,
+  _apiTokenTimestamp: 0
 })
 
 export const getters = {
@@ -87,6 +81,12 @@ export const getters = {
 }
 
 export const mutations = {
+  [indexTypes.SET_API_TOKEN] (state, apiToken) {
+    apiToken && (state._apiToken = apiToken)
+  },
+  [indexTypes.SET_API_TOKEN_TS] (state, ts) {
+    ts && (state._apiTokenTimestamp = ts)
+  },
   [indexTypes.SET_$KEYS] (state, $keys) {
     $keys && (state._$keys = $keys)
   },
@@ -102,6 +102,11 @@ export const actions = {
   async nuxtServerInit ({state, commit, dispatch}, {app, req, res}) {
     try {
       console.log('--------------------nuxtServerInit:')
+
+      const {apiToken, ts} = await app.api(`/apps/99alive/apiTokenBySSR`, {headers:{ssr: true}})
+      commit(indexTypes.SET_API_TOKEN, apiToken)
+      commit(indexTypes.SET_API_TOKEN_TS, ts)
+
       let urls = [
         app.api(`/share/keys.json`),
         app.api(`/share/district/cities/,_id name first_letter hot`),
@@ -118,7 +123,7 @@ export const actions = {
       let signin_ts  = parseCookie(req.headers.cookie, 'signin_ts')
       console.log('token:', token, signin_ts)
       if (token && signin_ts) {
-        await dispatch(`${uaPrefix}/token`, {token, signin_ts})
+        await dispatch(`${uaPrefix}/signinByToken`, {token, signin_ts})
       }
 
     } catch (e) {
