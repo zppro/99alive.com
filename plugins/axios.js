@@ -6,7 +6,10 @@ import qs from 'qs'
 export const api = axios.create({
   baseURL: process.env.API_BASE_URL,
   timeout: 20000,
-  withCredentials: true
+  withCredentials: false, // session-support
+  validateStatus: function (status) {
+    return status >= 200 && status < 500
+  }
 })
 
 export const $CORS_METHODS = ['post', 'put']
@@ -19,13 +22,16 @@ export default ({ app, store, isServer, isClient }) => {
   api.interceptors.request.use(config => {
     console.log(`CORS:${config.method}->${config.url}`)
     let {_apiToken, _apiTokenTimestamp} = store.state
-    config.headers.common['X-Api-Token'] =  _apiToken
-    // config.headers.common['X-Custom-TS'] =  _apiTokenTimestamp
+    if (config.needAuth) {
+      config.headers.common['X-Api-Token'] =  _apiToken
+      config.headers.common['X-Custom-TS'] =  _apiTokenTimestamp
+    }
     if ($CORS_METHODS.includes(config.method)) {
       config.data = qs.stringify(config.data)
-      console.log(`data:${config.data}`)
+      // console.log(`data:${config.data}`)
       config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
+    console.log(`config=>`, config)
     return config
   }, error => {
     console.error(error)

@@ -104,14 +104,16 @@ export const mutations = {
 
 export const actions = {
   async login ({dispatch, state, commit}, {username, pass}) {
-    const {user, token} = await api.post(`/share/auth/signin`, {path: state.apiFragment, username, pass})
+    const {user, token} = await api.post(`/share/auth/signin`, {path: state.apiFragment, username, pass}, {withCredentials: true})
+    console.log('user:', user)
+    console.log('token:', token)
     // const user = await api.post(`/${state.apiFragment}/signin`, {path: state.apiFragment, username, pass})
     commit(uaTypes.SET_USER, user)
     commit(uaTypes.SET_TOKEN, token)
     return true
   },
   async logout ({dispatch, state, commit}) {
-    await api.post(`/share/auth/signout`, {path: state.apiFragment})
+    await api.post(`/share/auth/signout`, {path: state.apiFragment}, {withCredentials: true})
     // const user = await api.post(`/${state.apiFragment}/signin`, {path: state.apiFragment, username, pass})
     commit(uaTypes.CLEAR_USER_TOKEN)
     return true
@@ -128,5 +130,9 @@ export const actions = {
 
     }
     return !!user
+  },
+  async fetchMyApplications ({state, commit}) {
+    const applications = await api(`${state.apiFragment}/myApplications`, {needAuth: true})
+    console.log(applications)
   }
 }
